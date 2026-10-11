@@ -1,0 +1,603 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:OceanForge.Desktop.ViewModels"
+        xmlns:views="using:OceanForge.Desktop.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1440" d:DesignHeight="900"
+        Width="1440" Height="900"
+        x:Class="OceanForge.Desktop.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="{Binding WindowTitle}"
+        Background="{StaticResource Ocean950Brush}">
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="56,*" ColumnDefinitions="280,*">
+        
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- TOP COMMAND BAR (Row 0, ColSpan 2)                              -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="0" Grid.ColumnSpan="2"
+                Background="{StaticResource Ocean900Brush}"
+                BorderBrush="{StaticResource Ocean800Brush}"
+                BorderThickness="0,0,0,1"
+                Padding="20,0">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <!-- Branding -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Spacing="12">
+                    <TextBlock Text="⚓" FontSize="20" Foreground="{StaticResource BrassGoldBrush}" VerticalAlignment="Center" />
+                    <StackPanel Spacing="0">
+                        <TextBlock Text="OCEANFORGE DESKTOP" FontWeight="Bold" FontSize="15" LetterSpacing="1" Foreground="{StaticResource BrassGoldBrush}" />
+                        <TextBlock Text="ABYSSAL COMMAND CENTER • BLOX FRUITS TELEMETRY" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Social Authentication & Profile Widget -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                    <!-- Guest / Logged in Status -->
+                    <Border Background="#102533" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="4" Padding="10,4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="👤" FontSize="12" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding UserDisplayName}" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                            <Border Background="#1C3042" CornerRadius="3" Padding="6,1" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding AuthProviderBadge}" FontSize="9" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Google Login Button -->
+                    <Button Command="{Binding LoginGoogleCommand}"
+                            Background="#1A2D3C" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="4" Padding="10,4" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="🌐" FontSize="11" VerticalAlignment="Center" />
+                            <TextBlock Text="Đăng Nhập Google" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Discord Login Button -->
+                    <Button Command="{Binding LoginDiscordCommand}"
+                            Background="#222744" BorderBrush="#5865F2" BorderThickness="1" CornerRadius="4" Padding="10,4" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="🎮" FontSize="11" VerticalAlignment="Center" />
+                            <TextBlock Text="Đăng Nhập Discord" FontSize="11" Foreground="#C9CDFF" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Sign Out Button (Visible if logged in) -->
+                    <Button Command="{Binding SignOutCommand}" IsVisible="{Binding IsUserLoggedIn}"
+                            Background="#2E1C20" BorderBrush="{StaticResource CrimsonDangerBrush}" BorderThickness="1" CornerRadius="4" Padding="8,4" Cursor="Hand">
+                        <TextBlock Text="Đăng Xuất" FontSize="10" Foreground="{StaticResource CrimsonDangerBrush}" VerticalAlignment="Center" />
+                    </Button>
+                </StackPanel>
+
+                <!-- Top Telemetry Status Badges -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Spacing="10">
+                    <!-- Get Script Lua & Auto Key Button -->
+                    <Button Command="{Binding CopyRobloxLoaderScriptCommand}"
+                            Background="#2563EB" BorderBrush="#60A5FA" BorderThickness="1" CornerRadius="4" Padding="10,4" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="📋" FontSize="12" VerticalAlignment="Center" />
+                            <TextBlock Text="Get Script Lua + Key" FontSize="11" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                    <!-- One-Click CPU / RAM / Disk Optimizer Button -->
+                    <Button Command="{Binding OptimizeEntireSystemCommand}"
+                            Background="#142C24" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="4" Padding="10,4" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="🚀" FontSize="11" VerticalAlignment="Center" />
+                            <TextBlock Text="Tối Ưu CPU•RAM•Đĩa" FontSize="11" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Engine Status -->
+                    <Border Background="#16382B" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="4" Padding="10,4">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <Ellipse Width="8" Height="8" Fill="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding EngineStatus}" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Hardware CPU Load -->
+                    <Border Background="#1A2530" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="4" Padding="10,4">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="⚡" FontSize="11" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding CpuUsage}" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Hardware RAM Usage -->
+                    <Border Background="#1A2530" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="4" Padding="10,4">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="💾" FontSize="11" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding RamUsage}" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Hardware Disk & Storage -->
+                    <Border Background="#1A2530" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="4" Padding="10,4">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="💽" FontSize="11" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding DiskUsage}" FontSize="11" Foreground="{StaticResource CyanSignalBrush}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- LEFT NAVIGATION SIDEBAR (Row 1, Col 0)                         -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="1" Grid.Column="0"
+                Background="{StaticResource Ocean900Brush}"
+                BorderBrush="{StaticResource Ocean800Brush}"
+                BorderThickness="0,0,1,0"
+                Padding="10,12">
+            <DockPanel LastChildFill="True">
+                
+                <!-- Footer status in sidebar -->
+                <Border DockPanel.Dock="Bottom" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="10,8" Margin="0,10,0,0">
+                    <StackPanel Spacing="3">
+                        <TextBlock Text="C# .NET 10 TELEMETRY ENGINE" FontSize="9" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                        <TextBlock Text="Blox Fruits Update 30 • 60 FPS" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                        <TextBlock Text="Bridge: http://127.0.0.1:5088" FontSize="9" Foreground="{StaticResource TextMutedBrush}" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Scrollable 24 Screens Navigation Menu -->
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Spacing="10" Margin="0,0,4,0">
+                        
+                        <!-- Current View Indicator Badge -->
+                        <Border Background="#102533" BorderBrush="{StaticResource CyanSignalBrush}" BorderThickness="1" CornerRadius="4" Padding="8,4">
+                            <Grid ColumnDefinitions="Auto,*">
+                                <TextBlock Grid.Column="0" Text="📍 Màn hình:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" Margin="0,0,6,0" />
+                                <TextBlock Grid.Column="1" Text="{Binding CurrentScreenId, StringFormat='{}UI-{0}'}" FontSize="11" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+
+                        <!-- CATEGORY 1: HẠM ĐỘI & ĐIỀU KHIỂN (CORE) -->
+                        <StackPanel Spacing="3">
+                            <TextBlock Text="HẠM ĐỘI &amp; ĐIỀU KHIỂN" FontSize="10" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" Margin="6,2,0,4" />
+                            
+                            <!-- 06. Dashboard / Command Center -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="06"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="#112938" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="⚓" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="06. Command Center" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource BrassGoldBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Get Script Lua & Key Manager -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="script"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="#16233E" BorderBrush="#3B82F6" BorderThickness="1" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="🔑" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="Get Script Lua &amp; Key" FontSize="11" FontWeight="Bold" Foreground="#60A5FA" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 05. Quản Lý Hạm Đội (Fleet) -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="05"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="🚢" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="05. Quản Lý Hạm Đội" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 08. Kho Wiki Blox Fruits -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="08"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="📖" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="08. Kho Vũ Khí Wiki" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 09. Bản Đồ Hải Trình -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="09"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="🗺️" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="09. Bản Đồ Hải Trình" FontSize="11" Foreground="{StaticResource CyanSignalBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 07. Chi Tiết Tài Khoản Drawer -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="07"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="🔍" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="07. Chi Tiết Tài Khoản" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+
+                        <Separator Background="{StaticResource Ocean800Brush}" Height="1" Margin="4,2" />
+
+                        <!-- CATEGORY 2: PHÂN TÍCH & CHẨN ĐOÁN -->
+                        <StackPanel Spacing="3">
+                            <TextBlock Text="PHÂN TÍCH &amp; CHẨN ĐOÁN" FontSize="10" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" Margin="6,2,0,4" />
+
+                            <!-- 10. Analytics -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="10"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="📈" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="10. Biểu Đồ Phân Tích" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 11. History -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="11"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="📜" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="11. Nhật Ký Lịch Sử" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 12. Alerts -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="12"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="🔔" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="12. Trung Tâm Cảnh Báo" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 18. System Health -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="18"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="📊" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="18. Sức Khỏe Phần Cứng" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 21. Multi-AI Deliberation & Logs -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="21"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="🤖" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="21. Hội Đồng 4 AI Agent" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+
+                        <Separator Background="{StaticResource Ocean800Brush}" Height="1" Margin="4,2" />
+
+                        <!-- CATEGORY 3: QUẢN TRỊ & CẤU HÌNH -->
+                        <StackPanel Spacing="3">
+                            <TextBlock Text="QUẢN TRỊ &amp; HỆ THỐNG" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" Margin="6,2,0,4" />
+
+                            <!-- 13. Metadata Editor -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="13"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="✏️" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="13. Sửa Metadata" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 14. Settings -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="14"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="⚙️" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="14. Cài Đặt Hệ Thống" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 15. Admin Users -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="15"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="👥" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="15. Quản Trị &amp; Quyền" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 16. Backup Restore -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="16"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="💾" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="16. Sao Lưu SQLite WAL" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 17. Updates -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="17"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="🔄" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="17. Quản Lý Cập Nhật" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 19. Import Pairing -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="19"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="📱" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="19. Nhập &amp; Ghép Thiết Bị" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 20. License Plan -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="20"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="⭐" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="20. Giấy Phép &amp; Gói" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 22. Team Messages -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="22"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="💬" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="22. Trò Chuyện Nhóm" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 23. Community Stats -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="23"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="🏆" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="23. Xếp Hạng Cộng Đồng" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <!-- 24. About & Support -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="24"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,7" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="ℹ️" FontSize="14" VerticalAlignment="Center" />
+                                    <TextBlock Text="24. Thông Tin &amp; Hỗ Trợ" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+
+                        <Separator Background="{StaticResource Ocean800Brush}" Height="1" Margin="4,2" />
+
+                        <!-- CATEGORY 4: AUTH & LAUNCHER FLOWS -->
+                        <StackPanel Spacing="3">
+                            <TextBlock Text="XÁC THỰC &amp; LAUNCHER" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" Margin="6,2,0,4" />
+
+                            <!-- 01. Splash Screen -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="01"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,6" Cursor="Hand">
+                                <TextBlock Text="01. Splash Brand Screen" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            </Button>
+
+                            <!-- 02. Sign In -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="02"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,6" Cursor="Hand">
+                                <TextBlock Text="02. Đăng Nhập (Sign In)" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            </Button>
+
+                            <!-- 03. Create Account -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="03"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,6" Cursor="Hand">
+                                <TextBlock Text="03. Tạo Tài Khoản (Sign Up)" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            </Button>
+
+                            <!-- 04. Welcome Shell -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="04"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="Transparent" BorderThickness="0" CornerRadius="4" Padding="10,6" Cursor="Hand">
+                                <TextBlock Text="04. Màn Hình Chào (Welcome)" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            </Button>
+
+                            <!-- Launcher Flow L01-L08 -->
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="launcher"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                    Background="#142C24" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="4" Padding="10,7" Cursor="Hand" Margin="0,4,0,0">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="🚀" FontSize="13" VerticalAlignment="Center" />
+                                    <TextBlock Text="Launcher Cài Đặt (L01–L08)" FontSize="11" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- MAIN OPERATIONAL VIEW (Row 1, Col 1)                           -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="1" Grid.Column="1">
+            
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="16">
+                <StackPanel Spacing="16">
+
+                    <!-- STATUS NOTICE BANNER (IF ACTIVE) -->
+                    <Border Background="#122B3B" BorderBrush="{StaticResource CyanSignalBrush}" BorderThickness="1" CornerRadius="6" Padding="12,8"
+                            IsVisible="{Binding StatusNotice, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Grid.Column="0" Text="ℹ️" FontSize="14" VerticalAlignment="Center" Margin="0,0,8,0" />
+                            <TextBlock Grid.Column="1" Text="{Binding StatusNotice}" FontSize="12" Foreground="{StaticResource CyanSignalBrush}" VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+
+                    <!-- SCREEN 01: SPLASH BRAND -->
+                    <StackPanel IsVisible="{Binding IsScreen01}">
+                        <views:SplashView />
+                    </StackPanel>
+
+                    <!-- SCREEN 02: SIGN IN -->
+                    <StackPanel IsVisible="{Binding IsScreen02}">
+                        <views:SignInView />
+                    </StackPanel>
+
+                    <!-- SCREEN 03: CREATE ACCOUNT -->
+                    <StackPanel IsVisible="{Binding IsScreen03}">
+                        <views:CreateAccountView />
+                    </StackPanel>
+
+                    <!-- SCREEN 04: WELCOME SHELL -->
+                    <StackPanel IsVisible="{Binding IsScreen04}">
+                        <views:WelcomeShellView />
+                    </StackPanel>
+
+                    <!-- SCREEN 05: FLEET MANAGEMENT -->
+                    <StackPanel IsVisible="{Binding IsScreen05}">
+                        <views:FleetView />
+                    </StackPanel>
+
+                    <!-- SCREEN 06: COMMAND CENTER (DASHBOARD) -->
+                    <StackPanel IsVisible="{Binding IsScreen06}">
+                        <views:DashboardView />
+                    </StackPanel>
+
+                    <!-- SCREEN 07: ACCOUNT DETAIL VIEW (CAN BE ACCESSED DIRECTLY) -->
+                    <StackPanel IsVisible="{Binding IsScreen07}">
+                        <views:AccountDetailDrawer />
+                    </StackPanel>
+
+                    <!-- SCREEN 08: BLOX FRUITS WIKI INVENTORY -->
+                    <StackPanel IsVisible="{Binding IsScreen08}">
+                        <views:InventoryView />
+                    </StackPanel>
+
+                    <!-- SCREEN 09: WORLD SEA MAP -->
+                    <StackPanel IsVisible="{Binding IsScreen09}">
+                        <views:WorldMapView />
+                    </StackPanel>
+
+                    <!-- SCREEN 10: ANALYTICS -->
+                    <StackPanel IsVisible="{Binding IsScreen10}">
+                        <views:AnalyticsView />
+                    </StackPanel>
+
+                    <!-- SCREEN 11: HISTORY -->
+                    <StackPanel IsVisible="{Binding IsScreen11}">
+                        <views:HistoryView />
+                    </StackPanel>
+
+                    <!-- SCREEN 12: ALERTS CENTER -->
+                    <StackPanel IsVisible="{Binding IsScreen12}">
+                        <views:AlertsView />
+                    </StackPanel>
+
+                    <!-- SCREEN 13: ACCOUNT METADATA EDITOR -->
+                    <StackPanel IsVisible="{Binding IsScreen13}">
+                        <views:AccountEditorView />
+                    </StackPanel>
+
+                    <!-- SCREEN 14: SETTINGS -->
+                    <StackPanel IsVisible="{Binding IsScreen14}">
+                        <views:SettingsView />
+                    </StackPanel>
+
+                    <!-- SCREEN 15: ADMIN USERS & RBAC -->
+                    <StackPanel IsVisible="{Binding IsScreen15}">
+                        <views:AdminUsersView />
+                    </StackPanel>
+
+                    <!-- SCREEN 16: BACKUP & RESTORE -->
+                    <StackPanel IsVisible="{Binding IsScreen16}">
+                        <views:BackupRestoreView />
+                    </StackPanel>
+
+                    <!-- SCREEN 17: UPDATES & RELEASE CHANNEL -->
+                    <StackPanel IsVisible="{Binding IsScreen17}">
+                        <views:UpdatesView />
+                    </StackPanel>
+
+                    <!-- SCREEN 18: SYSTEM HEALTH TELEMETRY -->
+                    <StackPanel IsVisible="{Binding IsScreen18}">
+                        <views:SystemHealthView />
+                    </StackPanel>
+
+                    <!-- SCREEN 19: IMPORT & PAIRING -->
+                    <StackPanel IsVisible="{Binding IsScreen19}">
+                        <views:ImportPairingView />
+                    </StackPanel>
+
+                    <!-- SCREEN 20: LICENSE & PLAN -->
+                    <StackPanel IsVisible="{Binding IsScreen20}">
+                        <views:LicensePlanView />
+                    </StackPanel>
+
+                    <!-- SCREEN 21: CONSOLE LOGS & MULTI-AI DELIBERATION -->
+                    <StackPanel IsVisible="{Binding IsScreen21}">
+                        <views:ConsoleLogsView />
+                    </StackPanel>
+
+                    <!-- SCREEN 22: TEAM MESSAGES -->
+                    <StackPanel IsVisible="{Binding IsScreen22}">
+                        <views:TeamMessagesView />
+                    </StackPanel>
+
+                    <!-- SCREEN 23: COMMUNITY STATISTICS -->
+                    <StackPanel IsVisible="{Binding IsScreen23}">
+                        <views:CommunityStatsView />
+                    </StackPanel>
+
+                    <!-- SCREEN 24: ABOUT & TECHNICAL SUPPORT -->
+                    <StackPanel IsVisible="{Binding IsScreen24}">
+                        <views:AboutSupportView />
+                    </StackPanel>
+
+                    <!-- LAUNCHER FLOW (L01-L08) -->
+                    <StackPanel IsVisible="{Binding IsScreenLauncher}">
+                        <views:LauncherDownloadView />
+                    </StackPanel>
+
+                    <!-- GET SCRIPT LUA & KEY MANAGER VIEW -->
+                    <StackPanel IsVisible="{Binding IsScreenScript}">
+                        <views:GetScriptKeyView />
+                    </StackPanel>
+
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <!-- SCREEN 07: ACCOUNT DETAIL DRAWER (SLIDE-IN OVERLAY)             -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <Border HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                    IsVisible="{Binding IsAccountDrawerOpen}"
+                    Margin="0,0,16,16"
+                    ZIndex="100">
+                <views:AccountDetailDrawer />
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

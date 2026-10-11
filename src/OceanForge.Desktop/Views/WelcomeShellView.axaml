@@ -1,0 +1,113 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.WelcomeShellView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="24">
+        <ScrollViewer>
+            <StackPanel Spacing="20">
+                <!-- Welcome Banner -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="1" CornerRadius="8" Padding="24">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="8">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <TextBlock Text="⚓" FontSize="24" VerticalAlignment="Center" Foreground="{StaticResource BrassGoldBrush}" />
+                                <TextBlock Text="CHÀO MỪNG ĐẾN VỚI OCEANFORGE DESKTOP (SCREEN 04)" FontSize="18" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <TextBlock Text="Trung tâm giám sát telemetry hạm đội hải tặc, băm trạng thái FNV-1a siêu tốc, tích hợp hội đồng 4 AI Agent và kho wiki Blox Fruits." 
+                                       FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" TextWrapping="Wrap" />
+                            <StackPanel Orientation="Horizontal" Spacing="16" Margin="0,4,0,0">
+                                <TextBlock Text="● Engine: .NET 10 LTS" FontSize="11" Foreground="{StaticResource SeafoamBrush}" FontWeight="SemiBold" />
+                                <TextBlock Text="● UI: Avalonia 12.1.4" FontSize="11" Foreground="{StaticResource CyanSignalBrush}" FontWeight="SemiBold" />
+                                <TextBlock Text="● Local DB: SQLite WAL" FontSize="11" Foreground="{StaticResource BrassGoldBrush}" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Border Grid.Column="1" Background="#16382B" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="6" Padding="14,10" VerticalAlignment="Center">
+                            <StackPanel Spacing="2" HorizontalAlignment="Center">
+                                <TextBlock Text="TRẠNG THÁI HỆ THỐNG" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                <TextBlock Text="HOÀN TOÀN SẴN SÀNG" FontSize="12" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Quick Action Tiles (4 Core Pathways) -->
+                <TextBlock Text="CÁC BƯỚC KHỞI ĐẦU VẬN HÀNH NHANH:" FontSize="12" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                
+                <Grid ColumnDefinitions="*,*,*,*">
+                    <!-- Action Tile 1: Fleet -->
+                    <Border Grid.Column="0" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="18" Margin="0,0,10,0">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="🚢" FontSize="28" Foreground="{StaticResource BrassGoldBrush}" />
+                            <TextBlock Text="05. Quản Lý Hạm Đội" FontSize="14" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                            <TextBlock Text="Theo dõi danh sách tài khoản đang online, level, tiền Beli và trái ác quỷ đang trang bị." FontSize="11" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" Height="48" />
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="05"
+                                    Background="#112938" Foreground="{StaticResource BrassGoldBrush}" CornerRadius="4" Padding="12,6" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Cursor="Hand">
+                                <TextBlock Text="Mở Hạm Đội ➔" FontWeight="Bold" FontSize="11" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Action Tile 2: World Map -->
+                    <Border Grid.Column="1" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="18" Margin="0,0,10,0">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="🗺️" FontSize="28" Foreground="{StaticResource CyanSignalBrush}" />
+                            <TextBlock Text="09. Bản Đồ Hải Trình" FontSize="14" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                            <TextBlock Text="Định vị tọa độ các tài khoản trên bản đồ 3 Vùng Biển: Tiki Outpost, Treats, Cafe, Skypiea." FontSize="11" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" Height="48" />
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="09"
+                                    Background="#112938" Foreground="{StaticResource CyanSignalBrush}" CornerRadius="4" Padding="12,6" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Cursor="Hand">
+                                <TextBlock Text="Mở Bản Đồ ➔" FontWeight="Bold" FontSize="11" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Action Tile 3: Wiki Catalog -->
+                    <Border Grid.Column="2" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="18" Margin="0,0,10,0">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="📖" FontSize="28" Foreground="{StaticResource SeafoamBrush}" />
+                            <TextBlock Text="08. Kho Wiki Blox Fruits" FontSize="14" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                            <TextBlock Text="Tra cứu 7 danh mục: Trái Ác Quỷ, Kiếm, Súng, Võ thuật, Phụ kiện, Nguyên liệu và Tộc V4." FontSize="11" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" Height="48" />
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="08"
+                                    Background="#112938" Foreground="{StaticResource SeafoamBrush}" CornerRadius="4" Padding="12,6" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Cursor="Hand">
+                                <TextBlock Text="Tra Cứu Wiki ➔" FontWeight="Bold" FontSize="11" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Action Tile 4: System Health -->
+                    <Border Grid.Column="3" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="18">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="📊" FontSize="28" Foreground="{StaticResource GoldLightBrush}" />
+                            <TextBlock Text="18. System Health" FontSize="14" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                            <TextBlock Text="Giám sát CPU, RAM, GC Allocations, Bounded Channel buffer và Local Database status." FontSize="11" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" Height="48" />
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="18"
+                                    Background="#112938" Foreground="{StaticResource GoldLightBrush}" CornerRadius="4" Padding="12,6" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Cursor="Hand">
+                                <TextBlock Text="Xem Phần Cứng ➔" FontWeight="Bold" FontSize="11" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Lua Loader Helper Card -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="18">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="4">
+                            <TextBlock Text="KẾT NỐI SCRIPT ROBLOX (SENDER COPY.LUA)" FontSize="13" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                            <TextBlock Text="Sao chép đoạn mã cấu hình Bridge một chạm để dán vào Roblox executor trước khi chạy sender copy.lua." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                        </StackPanel>
+                        <Button Grid.Column="1" Command="{Binding CopyRobloxLoaderScriptCommand}"
+                                Background="{StaticResource BrassGoldBrush}" Foreground="{StaticResource Ocean950Brush}"
+                                Padding="14,8" CornerRadius="4" Cursor="Hand">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="📋" />
+                                <TextBlock Text="Lấy Mã Lua Loader" FontWeight="Bold" FontSize="11" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

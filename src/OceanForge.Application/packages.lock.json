@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0": {
+      "oceanforge.contracts": {
+        "type": "Project"
+      },
+      "oceanforge.domain": {
+        "type": "Project"
+      }
+    }
+  }
+}

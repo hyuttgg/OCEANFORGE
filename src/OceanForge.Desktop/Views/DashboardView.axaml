@@ -1,0 +1,170 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.DashboardView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <ScrollViewer>
+            <StackPanel Spacing="20">
+                <!-- KPI STRIP -->
+                <Grid ColumnDefinitions="*,*,*,*">
+                    <!-- Card 1: Active Accounts -->
+                    <Border Grid.Column="0" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="16" Margin="0,0,10,0">
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="TÀI KHOẢN TRỰC TUYẾN" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="{Binding ActiveAccountsCount}" FontSize="28" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                            <TextBlock Text="Hạm đội đang vận hành" FontSize="11" Foreground="{StaticResource SeafoamBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Card 2: Packets / Sec -->
+                    <Border Grid.Column="1" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="16" Margin="0,0,10,0">
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="TỐC ĐỘ TELEMETRY" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="{Binding PacketsPerSecond, StringFormat='{}{0} pkt/s'}" FontSize="28" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                            <TextBlock Text="Xử lý qua In-Memory Channel" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Card 3: Total Packets -->
+                    <Border Grid.Column="2" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="16" Margin="0,0,10,0">
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="TỔNG SỐ PACKET NHẬN" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="{Binding TotalPacketsCount}" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                            <TextBlock Text="Cổng /api/lua/update" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Card 4: FNV-1a Deduped -->
+                    <Border Grid.Column="3" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="16">
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="FNV-1A DEDUPLICATED" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="{Binding DedupedPacketsCount}" FontSize="28" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                            <TextBlock Text="Giảm 90% tải CPU &amp; Database" FontSize="11" Foreground="{StaticResource SeafoamBrush}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- HARDWARE & RING BUFFER TELEMETRY STRIP -->
+                <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="14">
+                    <Grid ColumnDefinitions="*,*,*,*">
+                        <!-- Col 0: CPU -->
+                        <StackPanel Grid.Column="0" Spacing="2">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="⚡" FontSize="11" />
+                                <TextBlock Text="CPU THỜI GIAN THỰC" FontSize="10" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding CpuUsage}" FontSize="15" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                            <TextBlock Text="{Binding HardwareSnapshot.CpuAvgPercent, StringFormat='{}Trung bình 2p: {0:F1}%'}" FontSize="9" Foreground="{StaticResource TextMutedBrush}" />
+                        </StackPanel>
+
+                        <!-- Col 1: RAM -->
+                        <StackPanel Grid.Column="1" Spacing="2">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="💾" FontSize="11" />
+                                <TextBlock Text="RAM APP (WORKING SET)" FontSize="10" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding RamUsage}" FontSize="15" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                            <TextBlock Text="{Binding HardwareSnapshot.MemoryUsagePercentage, StringFormat='{}Host RAM: {0:F1}%'}" FontSize="9" Foreground="{StaticResource TextMutedBrush}" />
+                        </StackPanel>
+
+                        <!-- Col 2: Ổ CỨNG -->
+                        <StackPanel Grid.Column="2" Spacing="2">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="💽" FontSize="11" />
+                                <TextBlock Text="DUNG LƯỢNG Ổ CỨNG" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding DiskUsage}" FontSize="15" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                            <TextBlock Text="{Binding DiskDetails}" FontSize="9" Foreground="{StaticResource TextMutedBrush}" />
+                        </StackPanel>
+
+                        <!-- Col 3: CON TRỎ ĐỆM VÒNG -->
+                        <StackPanel Grid.Column="3" Spacing="2">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="🔄" FontSize="11" />
+                                <TextBlock Text="CON TRỎ ĐỆM VÒNG" FontSize="10" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding RingBufferCursorDisplay}" FontSize="13" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                            <TextBlock Text="Zero-Allocation 120s buffer" FontSize="9" Foreground="{StaticResource SeafoamBrush}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- QUICK DISPATCH CONTROLS -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="16">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="4">
+                            <TextBlock Text="06. TRUNG TÂM CHỈ HUY HẠM ĐỘI (COMMAND CENTER DASHBOARD)" FontSize="14" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                            <TextBlock Text="Kích hoạt mô phỏng gửi telemetry, kiểm thử tải hoặc triệu tập Hội đồng AI phản biện." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+                            <Button Command="{Binding SimulateRobloxTelemetryCommand}"
+                                    Background="#112B3B" Foreground="{StaticResource CyanSignalBrush}" BorderBrush="{StaticResource CyanSignalBrush}" BorderThickness="1"
+                                    CornerRadius="6" Padding="14,8" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Text="⚡" />
+                                    <TextBlock Text="Mô Phỏng Telemetry" FontWeight="SemiBold" FontSize="11" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Command="{Binding RunAiDebateCommand}"
+                                    Background="{StaticResource BrassGoldBrush}" Foreground="{StaticResource Ocean950Brush}"
+                                    CornerRadius="6" Padding="14,8" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Text="🤖" />
+                                    <TextBlock Text="Triệu Tập AI" FontWeight="Bold" FontSize="11" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- AI CONSENSUS VERDICT -->
+                <Border Background="#122533" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="1" CornerRadius="8" Padding="16">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <TextBlock Grid.Column="0" Text="⚖️" FontSize="26" VerticalAlignment="Center" Margin="0,0,14,0" />
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <TextBlock Text="PHÁN QUYẾT ĐỒNG THUẬN CỦA HỘI ĐỒNG 4 AI AGENT" FontSize="11" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                            <TextBlock Text="{Binding ConsensusVerdict}" TextWrapping="Wrap" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" LineHeight="18" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- FLEET SUMMARY OVERVIEW -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="16">
+                    <StackPanel Spacing="10">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Grid.Column="0" Text="TÀI KHOẢN HẠM ĐỘI GẦN ĐÂY NHẤT" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                            <Button Grid.Column="1" Command="{Binding SelectScreenCommand}" CommandParameter="05"
+                                    Background="Transparent" BorderThickness="0" Padding="0" Cursor="Hand">
+                                <TextBlock Text="Xem tất cả hạm đội ➔" FontSize="11" Foreground="{StaticResource CyanSignalBrush}" FontWeight="SemiBold" />
+                            </Button>
+                        </Grid>
+
+                        <ItemsControl ItemsSource="{Binding FilteredAccounts}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="4" Padding="12,8" Margin="0,0,0,6">
+                                        <Grid ColumnDefinitions="160,80,140,*,Auto">
+                                            <TextBlock Grid.Column="0" Text="{Binding RobloxUsername}" FontWeight="Bold" FontSize="12" Foreground="{StaticResource BrassGoldBrush}" VerticalAlignment="Center" />
+                                            <TextBlock Grid.Column="1" Text="{Binding Level, StringFormat='{}Lv. {0}'}" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                            <TextBlock Grid.Column="2" Text="{Binding Fruit}" FontSize="11" Foreground="{StaticResource GoldLightBrush}" VerticalAlignment="Center" />
+                                            <TextBlock Grid.Column="3" Text="{Binding Status}" FontSize="11" Foreground="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                                            <Button Grid.Column="4" Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).OpenAccountDetailCommand}" CommandParameter="{Binding}"
+                                                    Background="#122B3B" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="1"
+                                                    CornerRadius="3" Padding="8,3" Cursor="Hand">
+                                                <TextBlock Text="Chi tiết" FontSize="10" Foreground="{StaticResource BrassGoldBrush}" />
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

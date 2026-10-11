@@ -1,0 +1,67 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.CreateAccountView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource AbyssBrush}" Padding="40">
+        <Grid ColumnDefinitions="*,520,*">
+            <Border Grid.Column="1" Background="{StaticResource Ocean900Brush}" 
+                    BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" 
+                    CornerRadius="8" Padding="32" VerticalAlignment="Center">
+                <StackPanel Spacing="16">
+                    <StackPanel Spacing="6" HorizontalAlignment="Center">
+                        <TextBlock Text="⚔️" FontSize="32" HorizontalAlignment="Center" Foreground="{StaticResource BrassGoldBrush}" />
+                        <TextBlock Text="TẠO TÀI KHOẢN OCEANFORGE MỚI" FontSize="18" FontWeight="Bold" LetterSpacing="1" Foreground="{StaticResource GoldLightBrush}" HorizontalAlignment="Center" />
+                        <TextBlock Text="Đăng ký tài khoản thuyền trưởng quản lý hạm đội" FontSize="11" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                    <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+
+                    <!-- Form Inputs -->
+                    <StackPanel Spacing="12">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Tên Thuyền Trưởng (Display Name):" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBox PlaceholderText="Captain Jack" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" CornerRadius="4" Padding="10,8" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Địa Chỉ Email:" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBox PlaceholderText="jack@oceanforge.dev" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" CornerRadius="4" Padding="10,8" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Mật Khẩu:" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBox PasswordChar="●" PlaceholderText="Tối thiểu 8 ký tự, có số và ký tự đặc biệt" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" CornerRadius="4" Padding="10,8" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Xác Nhận Mật Khẩu:" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBox PasswordChar="●" PlaceholderText="Nhập lại mật khẩu" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" CornerRadius="4" Padding="10,8" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </StackPanel>
+
+                        <CheckBox IsChecked="True" Margin="0,4,0,0">
+                            <TextBlock Text="Tôi đồng ý với Điều khoản Sử dụng và Chính sách Bảo mật của OceanForge" FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                        </CheckBox>
+                    </StackPanel>
+
+                    <!-- Submit Button -->
+                    <Button Command="{Binding SelectScreenCommand}" CommandParameter="06"
+                            Background="{StaticResource BrassGoldBrush}" Foreground="{StaticResource Ocean950Brush}"
+                            HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                            Padding="14,10" CornerRadius="4" Cursor="Hand">
+                        <TextBlock Text="Hoàn Tất Đăng Ký ➔" FontWeight="Bold" FontSize="13" />
+                    </Button>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
+                        <TextBlock Text="Đã có tài khoản?" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                        <Button Command="{Binding SelectScreenCommand}" CommandParameter="02"
+                                Background="Transparent" BorderThickness="0" Padding="0" Cursor="Hand">
+                            <TextBlock Text="Quay lại Đăng nhập" FontSize="11" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

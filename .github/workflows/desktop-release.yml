@@ -1,0 +1,230 @@
+name: OceanForge Desktop Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: desktop-release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  SOLUTION_PATH: OceanForge.slnx
+  DESKTOP_PROJECT: src/OceanForge.Desktop/OceanForge.Desktop.csproj
+
+jobs:
+  validate-tag:
+    name: Validate release tag
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      is_prerelease: ${{ steps.version.outputs.is_prerelease }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - id: version
+        name: Parse SemVer tag and check main ancestry
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF_NAME}"
+          if [[ ! "$tag" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Invalid release tag: $tag"
+            exit 1
+          fi
+          version="${tag#v}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if [[ "$version" == *-* ]]; then
+            echo "is_prerelease=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_prerelease=false" >> "$GITHUB_OUTPUT"
+          fi
+          git fetch origin +refs/heads/main:refs/remotes/origin/main
+          if ! git merge-base --is-ancestor "${GITHUB_SHA}" origin/main; then
+            echo "::error::Tag commit is not reachable from origin/main."
+            exit 1
+          fi
+
+  build-package:
+    name: Build & Package (${{ matrix.rid }})
+    needs: validate-tag
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            rid: win-x64
+          - os: ubuntu-latest
+            rid: linux-x64
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    env:
+      RID: ${{ matrix.rid }}
+      APP_VERSION: ${{ needs.validate-tag.outputs.version }}
+    steps:
+      - name: Checkout exact tag commit
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
+        with:
+          global-json-file: global.json
+
+      - name: Toolchain info
+        shell: pwsh
+        run: |
+          git rev-parse HEAD
+          dotnet --info
+
+      - name: Restore solution (locked mode)
+        shell: pwsh
+        run: dotnet restore "$env:SOLUTION_PATH" --locked-mode
+
+      - name: Build Release
+        shell: pwsh
+        run: dotnet build "$env:SOLUTION_PATH" -c Release --no-restore
+
+      - name: Run unit tests
+        shell: pwsh
+        run: dotnet test "$env:SOLUTION_PATH" -c Release --no-build --filter "Category!=Integration" --logger trx
+
+      - name: Publish self-contained for target RID
+        shell: pwsh
+        run: |
+          $out = Join-Path $env:RUNNER_TEMP "publish/$env:RID"
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+          dotnet publish "$env:DESKTOP_PROJECT" `
+            --configuration Release `
+            --runtime "$env:RID" `
+            --self-contained true `
+            -p:RestoreLockedMode=false `
+            -p:Version="$env:APP_VERSION" `
+            -p:ContinuousIntegrationBuild=true `
+            -p:PublishTrimmed=false `
+            -p:PublishSingleFile=false `
+            -o "$out"
+
+      - name: Package Windows (ZIP + build-info.json)
+        if: matrix.rid == 'win-x64'
+        shell: pwsh
+        run: |
+          $pub = Join-Path $env:RUNNER_TEMP "publish/$env:RID"
+          $dist = Join-Path $env:RUNNER_TEMP "dist/$env:RID"
+          ./packaging/windows/package-win-x64.ps1 `
+            -Version "$env:APP_VERSION" `
+            -PublishDir $pub `
+            -OutputDir $dist `
+            -CommitSha "${{ github.sha }}"
+
+      - name: Package Linux (.deb + portable tar.gz + build-info.json)
+        if: matrix.rid == 'linux-x64'
+        shell: bash
+        run: |
+          bash ./packaging/linux/package-deb.sh \
+            "$APP_VERSION" \
+            "$RUNNER_TEMP/publish/$RID" \
+            "$RUNNER_TEMP/dist/$RID" \
+            "${{ github.sha }}"
+
+      - name: Upload packaged artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: package-${{ matrix.rid }}
+          path: ${{ runner.temp }}/dist/${{ matrix.rid }}/*
+          if-no-files-found: error
+          retention-days: 14
+
+  draft-release:
+    name: Create draft release with SBOM, Manifest & Attestation
+    needs: [validate-tag, build-package]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    env:
+      TAG_NAME: ${{ github.ref_name }}
+      APP_VERSION: ${{ needs.validate-tag.outputs.version }}
+      IS_PRERELEASE: ${{ needs.validate-tag.outputs.is_prerelease }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Download package artifacts
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          pattern: package-*
+          path: incoming
+          merge-multiple: false
+
+      - name: Assemble release assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release-assets
+          find incoming -maxdepth 4 -type f -exec cp {} release-assets/ \;
+          ls -lah release-assets
+
+      - name: Generate update-manifest.json
+        shell: pwsh
+        run: |
+          $channel = if ($env:IS_PRERELEASE -eq "true") { "beta" } else { "stable" }
+          $baseUrl = "https://github.com/${{ github.repository }}/releases/download/$env:TAG_NAME"
+          ./packaging/generate-update-manifest.ps1 `
+            -Version "$env:APP_VERSION" `
+            -Channel $channel `
+            -AssetsDir "release-assets" `
+            -BaseDownloadUrl $baseUrl `
+            -OutputFile "release-assets/update-manifest.json"
+
+      - name: Generate SBOM
+        uses: anchore/sbom-action@e22c389904149ebc2ce5fb0ebbf2afddfe753e8e # v0.18.0
+        with:
+          path: .
+          format: spdx-json
+          output-file: release-assets/SBOM.spdx.json
+
+      - name: Generate SHA-256 checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd release-assets
+          find . -maxdepth 1 -type f ! -name 'checksums-sha256.txt' -print0 \
+            | sort -z \
+            | xargs -0 sha256sum > checksums-sha256.txt
+          cat checksums-sha256.txt
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@c07444fd9c96c29fb7b7d7b89c1415c956205d3f # v2.2.3
+        with:
+          subject-path: "release-assets/*"
+
+      - name: Create GitHub draft release
+        shell: bash
+        run: |
+          set -euo pipefail
+          args=("$TAG_NAME" release-assets/* --title "OceanForge $TAG_NAME" --generate-notes --draft --verify-tag)
+          if [[ "$TAG_NAME" == *-* ]]; then
+            args+=(--prerelease)
+          fi
+          gh release create "${args[@]}"

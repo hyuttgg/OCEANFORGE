@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.ImportPairingView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <StackPanel Spacing="16">
+            <StackPanel Spacing="4">
+                <TextBlock Text="19. NHẬP DỮ LIỆU AN TOÀN &amp; GHÉP NỐI THIẾT BỊ QR (SAFE IMPORT &amp; QR PAIRING)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                <TextBlock Text="Nhập danh sách tài khoản theo định dạng JSON/CSV an toàn hoặc ghép nối thiết bị qua mã QR động có thời hạn (Zero Credential)." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+            </StackPanel>
+
+            <Grid ColumnDefinitions="*,*">
+                <!-- File Import Section -->
+                <Border Grid.Column="0" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="18" Margin="0,0,10,0">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="📁 NHẬP TỆP HẠM ĐỘI (JSON / CSV)" FontSize="12" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                        
+                        <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="2" CornerRadius="6" Padding="24" Height="140">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                                <TextBlock Text="📤" FontSize="28" HorizontalAlignment="Center" Foreground="{StaticResource CyanSignalBrush}" />
+                                <TextBlock Text="Kéo thả tệp JSON / CSV vào đây hoặc bấm để chọn tệp" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Chỉ chấp nhận tệp định dạng: account_list.json, fleet_export.csv" FontSize="10" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+
+                        <Button Content="Duyệt Tệp Từ Máy Tính..." Background="#112938" Foreground="{StaticResource CyanSignalBrush}" CornerRadius="4" Padding="12,8" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Cursor="Hand" FontSize="11" />
+                    </StackPanel>
+                </Border>
+
+                <!-- QR Pairing Section -->
+                <Border Grid.Column="1" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="18">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="📱 GHÉP NỐI THIẾT BỊ QUA MÃ QR (NONCE EXPIRING)" FontSize="12" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+
+                        <!-- Mock QR Display -->
+                        <Border Width="140" Height="140" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="1" CornerRadius="6" HorizontalAlignment="Center">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
+                                <TextBlock Text="🏁" FontSize="36" HorizontalAlignment="Center" />
+                                <TextBlock Text="MÃ QR MÃ HÓA" FontSize="9" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Hết hạn: 04:59" FontSize="10" Foreground="{StaticResource SeafoamBrush}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#10251B" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="4" Padding="10,6">
+                            <TextBlock Text="🛡️ RÀNG BUỘC BẢO MẬT: Mã QR chỉ chứa chuỗi nonce pairing ngẫu nhiên có thời hạn 5 phút. Không dùng QR để chuyển mật khẩu hay cookie Roblox." 
+                                       FontSize="10" Foreground="{StaticResource SeafoamBrush}" TextWrapping="Wrap" />
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </Border>
+</UserControl>

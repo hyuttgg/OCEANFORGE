@@ -1,0 +1,105 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.SettingsView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <ScrollViewer>
+            <StackPanel Spacing="18" MaxWidth="800" HorizontalAlignment="Left">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="14. CÀI ĐẶT HỆ THỐNG &amp; HIỆU NĂNG (SYSTEM SETTINGS &amp; PROFILES)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    <TextBlock Text="Tùy chỉnh cấu hình hiển thị, cơ chế đệm telemetry, profile phần cứng và chính sách lưu trữ offline SQLite." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+
+                <!-- Performance Profiles -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="18">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="HỒ SƠ HIỆU NĂNG (PERFORMANCE PROFILES)" FontSize="12" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                        
+                        <Grid ColumnDefinitions="*,*,*,*">
+                            <Border Grid.Column="0" Background="#112938" BorderBrush="{StaticResource CyanSignalBrush}" BorderThickness="1" CornerRadius="4" Padding="12" Margin="0,0,8,0">
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="● Standard (Mặc định)" FontWeight="Bold" FontSize="11" Foreground="{StaticResource CyanSignalBrush}" />
+                                    <TextBlock Text="Cân bằng CPU/RAM, 60 FPS, Polling 1 Hz." FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="1" Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="12" Margin="0,0,8,0">
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="High Performance" FontWeight="Bold" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBlock Text="Tần suất Ingestion tối đa, không throttle." FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="2" Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="12" Margin="0,0,8,0">
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="Low Bandwidth" FontWeight="Bold" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBlock Text="Nén telemetry, chỉ cập nhật delta." FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="3" Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="12">
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="Developer Debug" FontWeight="Bold" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBlock Text="Mở console trace, log FNV-1a chi tiết." FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Network & Bridge Settings -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="18">
+                    <StackPanel Spacing="14">
+                        <TextBlock Text="CỔNG GIAO TIẾP HTTP BRIDGE (:5088)" FontSize="12" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+
+                        <Grid ColumnDefinitions="*,160">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="Địa chỉ Loopback an toàn:" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" FontWeight="SemiBold" />
+                                <TextBlock Text="Chỉ lắng nghe trên 127.0.0.1, tuyệt đối không mở cổng ra mạng LAN hoặc Internet công cộng." FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            </StackPanel>
+                            <TextBox Grid.Column="1" Text="127.0.0.1:5088" IsReadOnly="True" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" CornerRadius="4" Padding="8,4" Foreground="{StaticResource SeafoamBrush}" />
+                        </Grid>
+
+                        <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="Bật Fast-Path FNV-1a Checksum Deduplication:" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" FontWeight="SemiBold" />
+                                <TextBlock Text="Bỏ qua các packet trùng trạng thái trong vòng 20 ns để giảm 90% tải CPU." FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            </StackPanel>
+                            <ToggleSwitch Grid.Column="1" IsChecked="True" OnContent="BẬT" OffContent="TẮT" />
+                        </Grid>
+
+                        <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="Bảo vệ Chống Thu Thập Mật Khẩu (Zero-Roblox Policy):" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" FontWeight="SemiBold" />
+                                <TextBlock Text="Tự động hủy bỏ và báo động khi phát hiện token cookie hoặc mật khẩu trong payload." FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            </StackPanel>
+                            <ToggleSwitch Grid.Column="1" IsChecked="True" IsEnabled="False" OnContent="CƯỠNG CHẾ" OffContent="TẮT" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Local Storage & Cache -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="18">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="LƯU TRỮ OFFLINE SQLITE &amp; DỌN DẸP BỘ NHỚ" FontSize="12" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="Vị trí cơ sở dữ liệu local:" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                                <TextBlock Text="%LocalAppData%/OceanForge/oceanforge_local.db (Dung lượng: 4.2 MB • Chế độ WAL)" FontSize="10" Foreground="{StaticResource GoldLightBrush}" />
+                            </StackPanel>
+
+                            <Button Grid.Column="1" Content="Dọn Dẹp Cache" Background="#1A2530" Foreground="{StaticResource TextPrimaryBrush}" CornerRadius="4" Padding="10,6" Cursor="Hand" FontSize="11" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

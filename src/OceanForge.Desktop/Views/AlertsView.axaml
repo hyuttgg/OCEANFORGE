@@ -1,0 +1,107 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.AlertsView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <StackPanel Spacing="16">
+            <!-- Header Toolbar -->
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Spacing="4">
+                    <TextBlock Text="12. TRUNG TÂM CẢNH BÁO &amp; AN TOÀN (ALERT &amp; NOTIFICATION CENTER)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    <TextBlock Text="Phân loại các cảnh báo bất thường: ngắt kết nối, nghi vấn payload bất thường, CPU/RAM quá tải hoặc tài khoản bị tấn công." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+
+                <!-- Severity Tabs -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <Button Content="Tất Cả (3)" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource CyanSignalBrush}" FontSize="11" />
+                    <Button Content="Nguy Hiểm (0)" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextMutedBrush}" FontSize="11" />
+                    <Button Content="Cảnh Báo (1)" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource WarningBrush}" FontSize="11" />
+                    <Button Content="Thông Tin (2)" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource SeafoamBrush}" FontSize="11" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Alerts Grid -->
+            <Grid ColumnDefinitions="*,360">
+                <!-- Alert List (Left) -->
+                <Border Grid.Column="0" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="14" Margin="0,0,10,0">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="DANH SÁCH CẢNH BÁO HOẠT ĐỘNG" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+
+                        <!-- Alert Item 1: Warning -->
+                        <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource WarningBrush}" BorderThickness="1" CornerRadius="4" Padding="12,10">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <TextBlock Grid.Column="0" Text="⚠️" FontSize="18" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                <StackPanel Grid.Column="1" Spacing="2">
+                                    <TextBlock Text="Tần suất gửi Telemetry cao đột biến" FontWeight="Bold" FontSize="12" Foreground="{StaticResource WarningBrush}" />
+                                    <TextBlock Text="Tài khoản CaptainKha_77 gửi 45 pkt/s trong khi săn Leviathan tại Tiki Outpost." FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBlock Text="Nguồn: Rule-Rate-Limiter • 2 phút trước" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                                <Border Grid.Column="2" Background="#261E14" CornerRadius="3" Padding="6,2" VerticalAlignment="Center">
+                                    <TextBlock Text="WARNING" FontSize="9" FontWeight="Bold" Foreground="{StaticResource WarningBrush}" />
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <!-- Alert Item 2: Info -->
+                        <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="4" Padding="12,10">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <TextBlock Grid.Column="0" Text="ℹ️" FontSize="18" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                <StackPanel Grid.Column="1" Spacing="2">
+                                    <TextBlock Text="Kích hoạt Fast-path FNV-1a Checksum" FontWeight="Bold" FontSize="12" Foreground="{StaticResource CyanSignalBrush}" />
+                                    <TextBlock Text="Đã deduplicate thành công 92.4% telemetry dư thừa, giữ bộ nhớ RAM ổn định &lt; 85 MB." FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBlock Text="Nguồn: TelemetryIngestionService • 10 phút trước" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                                <Border Grid.Column="2" Background="#102533" CornerRadius="3" Padding="6,2" VerticalAlignment="Center">
+                                    <TextBlock Text="INFO" FontSize="9" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <!-- Alert Item 3: Info -->
+                        <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="4" Padding="12,10">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <TextBlock Grid.Column="0" Text="✅" FontSize="18" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                <StackPanel Grid.Column="1" Spacing="2">
+                                    <TextBlock Text="Kiểm định Bảo mật Zero-Roblox hoàn tất" FontWeight="Bold" FontSize="12" Foreground="{StaticResource SeafoamBrush}" />
+                                    <TextBlock Text="Không phát hiện bất kỳ token .ROBLOSECURITY hoặc password nào trong luồng nhận." FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBlock Text="Nguồn: AppSec &amp; Compliance Audit • 25 phút trước" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                                <Border Grid.Column="2" Background="#16382B" CornerRadius="3" Padding="6,2" VerticalAlignment="Center">
+                                    <TextBlock Text="PASS" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- Alert Detail & Actions (Right) -->
+                <Border Grid.Column="1" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="CHI TIẾT &amp; HÀNH ĐỘNG CẢNH BÁO" FontSize="11" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                        
+                        <Border Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="12">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="Mục tiêu cảnh báo:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                <TextBlock Text="CaptainKha_77 (Level 2600)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" />
+
+                                <TextBlock Text="Mức độ nghiêm trọng:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" Margin="0,4,0,0" />
+                                <TextBlock Text="CẢNH BÁO VỪA (MEDIUM LEVEL)" FontWeight="Bold" FontSize="11" Foreground="{StaticResource WarningBrush}" />
+
+                                <TextBlock Text="Hành động tự động:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" Margin="0,4,0,0" />
+                                <TextBlock Text="Tự động áp dụng Spatial Bucketing cho tọa độ vị trí Boss." FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                            </StackPanel>
+                        </Border>
+
+                        <StackPanel Spacing="8">
+                            <Button Content="✓ Xác Nhận &amp; Bỏ Cảnh Báo" Background="#16382B" Foreground="{StaticResource SeafoamBrush}" CornerRadius="4" Padding="10,8" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Cursor="Hand" FontWeight="SemiBold" FontSize="11" />
+                            <Button Content="⏳ Tạm Hoãn 15 Phút" Background="#1B2533" Foreground="{StaticResource CyanSignalBrush}" CornerRadius="4" Padding="10,8" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Cursor="Hand" FontSize="11" />
+                            <Button Content="⚙️ Mở Cấu Hình Rule" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" CornerRadius="4" Padding="10,8" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Cursor="Hand" FontSize="11" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </Border>
+</UserControl>

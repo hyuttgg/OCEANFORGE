@@ -1,0 +1,107 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="OceanForge.Desktop.App"
+             xmlns:local="using:OceanForge.Desktop"
+             RequestedThemeVariant="Dark">
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Resources>
+        <!-- OceanForge Abyssal Ocean Master Design Tokens -->
+        <Color x:Key="Ocean950Color">#06121A</Color>
+        <Color x:Key="Ocean900Color">#0A1C27</Color>
+        <Color x:Key="Ocean800Color">#122B3B</Color>
+        <Color x:Key="AbyssColor">#020617</Color>
+        <Color x:Key="BrassGoldColor">#C8A65A</Color>
+        <Color x:Key="GoldLightColor">#E1BE67</Color>
+        <Color x:Key="SeafoamColor">#68C6C0</Color>
+        <Color x:Key="CyanSignalColor">#7ED7EA</Color>
+        <Color x:Key="WarningColor">#D5A64E</Color>
+        <Color x:Key="DangerColor">#C66B63</Color>
+        <Color x:Key="CrimsonDangerColor">#EF4444</Color>
+        <Color x:Key="TextPrimaryColor">#E4ECEE</Color>
+        <Color x:Key="TextMutedColor">#81949A</Color>
+
+        <SolidColorBrush x:Key="Ocean950Brush" Color="{StaticResource Ocean950Color}" />
+        <SolidColorBrush x:Key="Ocean900Brush" Color="{StaticResource Ocean900Color}" />
+        <SolidColorBrush x:Key="Ocean800Brush" Color="{StaticResource Ocean800Color}" />
+        <SolidColorBrush x:Key="AbyssBrush" Color="{StaticResource AbyssColor}" />
+        <SolidColorBrush x:Key="BrassGoldBrush" Color="{StaticResource BrassGoldColor}" />
+        <SolidColorBrush x:Key="GoldLightBrush" Color="{StaticResource GoldLightColor}" />
+        <SolidColorBrush x:Key="SeafoamBrush" Color="{StaticResource SeafoamColor}" />
+        <SolidColorBrush x:Key="CyanSignalBrush" Color="{StaticResource CyanSignalColor}" />
+        <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}" />
+        <SolidColorBrush x:Key="DangerBrush" Color="{StaticResource DangerColor}" />
+        <SolidColorBrush x:Key="CrimsonDangerBrush" Color="{StaticResource CrimsonDangerColor}" />
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}" />
+        <SolidColorBrush x:Key="TextMutedBrush" Color="{StaticResource TextMutedColor}" />
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme />
+
+        <!-- ═══════════════════════════════════════════════════════════════════ -->
+        <!-- SYSTEM-WIDE GPU-ACCELERATED ANIMATIONS & MICRO-INTERACTIONS (60FPS) -->
+        <!-- ═══════════════════════════════════════════════════════════════════ -->
+
+        <!-- 1. Smooth Interactive Buttons (Scale + Opacity + Brush Transitions) -->
+        <Style Selector="Button">
+            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+            <Setter Property="RenderTransform" Value="scale(1)" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.16" Easing="CubicEaseOut" />
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" Easing="CubicEaseOut" />
+                    <BrushTransition Property="Background" Duration="0:0:0.18" Easing="CubicEaseOut" />
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.18" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button:pointerover">
+            <Setter Property="RenderTransform" Value="scale(1.02)" />
+            <Setter Property="Opacity" Value="0.96" />
+        </Style>
+
+        <Style Selector="Button:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.97)" />
+            <Setter Property="Opacity" Value="0.88" />
+        </Style>
+
+        <!-- 2. Smooth Card & Panel Border/Background Transitions -->
+        <Style Selector="Border">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.22" Easing="CubicEaseOut" />
+                    <BrushTransition Property="Background" Duration="0:0:0.22" Easing="CubicEaseOut" />
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.20" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <!-- 3. Smooth ProgressBar Value Interpolation for CPU / RAM / Disk Telemetry -->
+        <Style Selector="ProgressBar">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Value" Duration="0:0:0.35" Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <!-- 4. Live Telemetry Heartbeat Pulse Animation on Status Ellipses -->
+        <Style Selector="Ellipse">
+            <Style.Animations>
+                <Animation Duration="0:0:1.6" IterationCount="Infinite" PlaybackDirection="Alternate" Easing="SineEaseInOut">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="1.0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="0.38" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </Application.Styles>
+</Application>

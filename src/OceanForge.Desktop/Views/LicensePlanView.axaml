@@ -1,0 +1,79 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.LicensePlanView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <ScrollViewer>
+            <StackPanel Spacing="18">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="20. BẢN QUYỀN &amp; GÓI VẬN HÀNH (LICENSE &amp; SUBSCRIPTION PLANS)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    <TextBlock Text="Thông tin hạn mức hạm đội, tính năng hội đồng AI và số lượng tài khoản theo dõi đồng thời." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+
+                <!-- Current Plan Card -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="1" CornerRadius="6" Padding="18">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="4">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <TextBlock Text="GÓI HIỆN TẠI: CAPTAIN PRO (VĨNH VIỄN)" FontSize="14" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                                <Border Background="#16382B" CornerRadius="3" Padding="6,2">
+                                    <TextBlock Text="ACTIVE" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                </Border>
+                            </StackPanel>
+                            <TextBlock Text="Đầy đủ quyền truy cập: Hạm đội không giới hạn tài khoản, FNV-1a Checksum Deduping, Hội đồng 4 Multi-AI Agent và Bản đồ 3 Sea." FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="1" Text="Cấp phép: Local Dev Edition" FontSize="11" Foreground="{StaticResource CyanSignalBrush}" VerticalAlignment="Center" FontWeight="SemiBold" />
+                    </Grid>
+                </Border>
+
+                <!-- Plan Comparison Grid -->
+                <Grid ColumnDefinitions="*,*,*">
+                    <!-- Free -->
+                    <Border Grid.Column="0" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16" Margin="0,0,10,0">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="COMMUNITY FREE" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                            <TextBlock Text="Dành cho người mới" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+                            <TextBlock Text="• Giới hạn 5 tài khoản" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="• BoundedChannel 1,000" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="• AI Debate cơ bản" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Pro (Featured) -->
+                    <Border Grid.Column="1" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="2" CornerRadius="6" Padding="16" Margin="0,0,10,0">
+                        <StackPanel Spacing="10">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="CAPTAIN PRO" FontSize="13" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                                <Border Grid.Column="1" Background="#261E14" CornerRadius="3" Padding="6,2">
+                                    <TextBlock Text="ĐANG DÙNG" FontSize="9" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                                </Border>
+                            </Grid>
+                            <TextBlock Text="Chuyên nghiệp cho chủ hạm đội" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+                            <TextBlock Text="• Không giới hạn tài khoản" FontSize="11" Foreground="{StaticResource SeafoamBrush}" FontWeight="SemiBold" />
+                            <TextBlock Text="• BoundedChannel 10,000 items" FontSize="11" Foreground="{StaticResource SeafoamBrush}" FontWeight="SemiBold" />
+                            <TextBlock Text="• Hội đồng 4 AI Agent phản biện" FontSize="11" Foreground="{StaticResource SeafoamBrush}" FontWeight="SemiBold" />
+                            <TextBlock Text="• Đầy đủ 24 màn hình nghiệp vụ" FontSize="11" Foreground="{StaticResource SeafoamBrush}" FontWeight="SemiBold" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Enterprise -->
+                    <Border Grid.Column="2" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="ENTERPRISE ARMADA" FontSize="13" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                            <TextBlock Text="Hạ tầng server quy mô lớn" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+                            <TextBlock Text="• Kết nối Cluster MySQL 8.4" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="• SignalR realtime streaming" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="• Hỗ trợ kỹ thuật 24/7" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

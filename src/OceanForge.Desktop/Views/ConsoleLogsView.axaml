@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.ConsoleLogsView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <ScrollViewer>
+            <StackPanel Spacing="18">
+                <!-- Header Toolbar -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0" Spacing="4">
+                        <TextBlock Text="21. BẢNG ĐIỀU KHIỂN CHẨN ĐOÁN &amp; HỘI ĐỒNG AI TRANH LUẬN (MULTI-AI DELIBERATION CONSOLE)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                        <TextBlock Text="Hội đồng 4 AI Agent chuyên trách phản biện lẫn nhau (Lead Architect, AppSec, Avalonia UI/UX, Hardware &amp; Telemetry) và kiểm tra Structured Logs." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                    </StackPanel>
+
+                    <Button Grid.Column="1" Command="{Binding RunAiDebateCommand}"
+                            Background="{StaticResource BrassGoldBrush}" Foreground="{StaticResource Ocean950Brush}"
+                            FontWeight="Bold" CornerRadius="4" Padding="14,8" Cursor="Hand" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="🤖" />
+                            <TextBlock Text="Triệu Tập Tranh Biện AI" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <!-- Topic Selector Chips -->
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="Chủ đề:" FontSize="11" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" />
+                    <Button Command="{Binding TriggerDebateWithTopicCommand}" CommandParameter="Tối ưu hóa Ingestion Telemetry &amp; FNV-1a Checksum" Content="⚡ Ingestion &amp; Checksum" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource CyanSignalBrush}" FontSize="11" />
+                    <Button Command="{Binding TriggerDebateWithTopicCommand}" CommandParameter="Bảo mật AppSec: Chặn lộ lọt Cookie và Roblox Credentials" Content="🛡️ Bảo Mật &amp; Zero-Roblox" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource CrimsonDangerBrush}" FontSize="11" />
+                    <Button Command="{Binding TriggerDebateWithTopicCommand}" CommandParameter="Phân bổ Tài nguyên Phần cứng và Ổn định UI 60 FPS" Content="📊 Phần Cứng &amp; 60 FPS" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource SeafoamBrush}" FontSize="11" />
+                    <Button Command="{Binding TriggerDebateWithTopicCommand}" CommandParameter="Chiến lược Blox Fruits Update 30: Săn Leviathan &amp; Tộc V4" Content="🐉 Update 30 &amp; Leviathan" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource BrassGoldBrush}" FontSize="11" />
+                </StackPanel>
+
+                <!-- Consensus Verdict Banner -->
+                <Border Background="#132B36" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="6" Padding="16,12">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <TextBlock Grid.Column="0" Text="⚖️" FontSize="22" VerticalAlignment="Center" Margin="0,0,12,0" />
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <TextBlock Text="PHÁN QUYẾT ĐỒNG THUẬN CHỐT (CONSENSUS VERDICT):" FontSize="11" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                            <TextBlock Text="{Binding ConsensusVerdict}" TextWrapping="Wrap" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" FontWeight="SemiBold" LineHeight="18" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Agent Debate Transcripts -->
+                <ItemsControl ItemsSource="{Binding Debates}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16" Margin="0,0,0,10">
+                                <StackPanel Spacing="8">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                                            <TextBlock Text="👤" FontSize="15" VerticalAlignment="Center" />
+                                            <TextBlock Text="{Binding AgentName}" FontWeight="Bold" FontSize="13" Foreground="{StaticResource GoldLightBrush}" VerticalAlignment="Center" />
+                                            <Border Background="#122533" CornerRadius="3" Padding="6,2" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Role}" FontSize="10" Foreground="{StaticResource CyanSignalBrush}" />
+                                            </Border>
+                                        </StackPanel>
+
+                                        <Border Grid.Column="1" Background="#16382B" CornerRadius="3" Padding="6,2">
+                                            <TextBlock Text="THAM GIA PHẢN BIỆN" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                        </Border>
+                                    </Grid>
+
+                                    <TextBlock Text="{Binding Perspective}" TextWrapping="Wrap" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" LineHeight="18" />
+
+                                    <Border Background="#0C1D27" CornerRadius="4" Padding="10,6">
+                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                            <TextBlock Text="📌 Đề xuất chốt:" FontSize="10" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                                            <TextBlock Text="{Binding KeyRecommendation}" TextWrapping="Wrap" FontSize="11" Foreground="{StaticResource SeafoamBrush}" />
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

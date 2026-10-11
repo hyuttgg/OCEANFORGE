@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0": {
+      "oceanforge.application": {
+        "type": "Project",
+        "dependencies": {
+          "OceanForge.Contracts": "[1.0.0, )",
+          "OceanForge.Domain": "[1.0.0, )"
+        }
+      },
+      "oceanforge.contracts": {
+        "type": "Project"
+      },
+      "oceanforge.domain": {
+        "type": "Project"
+      },
+      "oceanforge.telemetry": {
+        "type": "Project",
+        "dependencies": {
+          "OceanForge.Contracts": "[1.0.0, )",
+          "OceanForge.Domain": "[1.0.0, )"
+        }
+      }
+    }
+  }
+}

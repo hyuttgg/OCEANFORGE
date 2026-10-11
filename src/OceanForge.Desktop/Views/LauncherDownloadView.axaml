@@ -1,0 +1,220 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.LauncherDownloadView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="16" MaxWidth="900" HorizontalAlignment="Left">
+                
+                <!-- Header -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0" Spacing="4">
+                        <TextBlock Text="TRÌNH CÀI ĐẶT &amp; CẬP NHẬT TẬP TRUNG (LAUNCHER L01–L08 FLOW)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                        <TextBlock Text="Quy trình triển khai, kiểm tra hệ thống, tải gói cài đặt và xác thực chữ ký số SHA-256 tự động." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                    </StackPanel>
+
+                    <Border Grid.Column="1" Background="#16382B" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="4" Padding="10,4" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <Ellipse Width="8" Height="8" Fill="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                            <TextBlock Text="OFFICIAL SIGNED RELEASE" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Step Navigator Bar (L01 -> L08) -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12">
+                    <Grid ColumnDefinitions="*,*,*,*,*,*,*,*">
+                        <!-- Step 1 -->
+                        <Border Grid.Column="0" Background="#122533" CornerRadius="4" Padding="6,4" Margin="2,0">
+                            <StackPanel HorizontalAlignment="Center" Spacing="2">
+                                <TextBlock Text="L01" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Nguồn" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <!-- Step 2 -->
+                        <Border Grid.Column="1" Background="#122533" CornerRadius="4" Padding="6,4" Margin="2,0">
+                            <StackPanel HorizontalAlignment="Center" Spacing="2">
+                                <TextBlock Text="L02" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Kiểm Tra" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <!-- Step 3 -->
+                        <Border Grid.Column="2" Background="#122533" CornerRadius="4" Padding="6,4" Margin="2,0">
+                            <StackPanel HorizontalAlignment="Center" Spacing="2">
+                                <TextBlock Text="L03" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Gói Cài" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <!-- Step 4 -->
+                        <Border Grid.Column="3" Background="#122533" CornerRadius="4" Padding="6,4" Margin="2,0">
+                            <StackPanel HorizontalAlignment="Center" Spacing="2">
+                                <TextBlock Text="L04" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Thư Mục" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <!-- Step 5 -->
+                        <Border Grid.Column="4" Background="#193547" BorderBrush="{StaticResource CyanSignalBrush}" BorderThickness="1" CornerRadius="4" Padding="6,4" Margin="2,0">
+                            <StackPanel HorizontalAlignment="Center" Spacing="2">
+                                <TextBlock Text="L05" FontSize="9" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Tải Về" FontSize="10" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <!-- Step 6 -->
+                        <Border Grid.Column="5" Background="#122533" CornerRadius="4" Padding="6,4" Margin="2,0">
+                            <StackPanel HorizontalAlignment="Center" Spacing="2">
+                                <TextBlock Text="L06" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Xác Thực" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <!-- Step 7 -->
+                        <Border Grid.Column="6" Background="#122533" CornerRadius="4" Padding="6,4" Margin="2,0">
+                            <StackPanel HorizontalAlignment="Center" Spacing="2">
+                                <TextBlock Text="L07" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Cài Đặt" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <!-- Step 8 -->
+                        <Border Grid.Column="7" Background="#122533" CornerRadius="4" Padding="6,4" Margin="2,0">
+                            <StackPanel HorizontalAlignment="Center" Spacing="2">
+                                <TextBlock Text="L08" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Hoàn Tất" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- L01 & L02: Welcome & System Compatibility Check -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="16">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="L01 &amp; L02: XÁC THỰC NGUỒN CHÍNH THỨC &amp; TƯƠNG THÍCH MÔI TRƯỜNG" FontSize="12" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                        
+                        <Grid ColumnDefinitions="*,*">
+                            <!-- Left: Source Manifest -->
+                            <Border Grid.Column="0" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,8,0">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="NGUỒN PHÁT HÀNH (PUBLISHER)" FontSize="10" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                                    <TextBlock Text="OceanForge Engineering Group" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBlock Text="URI: https://github.com/oceanforge/releases/tag/v4.0.0" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Text="Kênh: Stable LTS • Không yêu cầu tài khoản để cài đặt" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Right: System Compatibility -->
+                            <Border Grid.Column="1" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12" Margin="8,0,0,0">
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="KIỂM TRA HỆ THỐNG (SYSTEM PRE-FLIGHT)" FontSize="10" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                                    <TextBlock Text="✔ Hệ điều hành: Windows 10/11 x64 hoặc Linux x64 (PASS)" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                                    <TextBlock Text="✔ Dung lượng ổ đĩa: > 2.5 GB khả dụng (PASS)" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                                    <TextBlock Text="✔ Cổng Telemetry Ingestion 5088: Sẵn sàng (PASS)" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                                    <TextBlock Text="✔ Bộ nhớ RAM: >= 4 GB vật lý (PASS)" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- L03: Install Profile Selection -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="16">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="L03: CHỌN HỒ SƠ CÀI ĐẶT (INSTALL PROFILE)" FontSize="12" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                        
+                        <Grid ColumnDefinitions="*,*,*">
+                            <!-- Profile 1: Minimal -->
+                            <Border Grid.Column="0" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,6,0">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="Minimal Profile" FontSize="12" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBlock Text="85 MB Download • 180 MB Ổ đĩa" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Text="Chỉ bao gồm Core Telemetry Bridge &amp; Console Logs cơ bản." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Profile 2: Standard (Recommended) -->
+                            <Border Grid.Column="1" Background="#102533" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="2" CornerRadius="6" Padding="12" Margin="3,0">
+                                <StackPanel Spacing="6">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <TextBlock Text="Standard Profile" FontSize="12" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                                        <Border Background="#16382B" CornerRadius="3" Padding="4,1">
+                                            <TextBlock Text="KHUYÊN DÙNG" FontSize="8" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                        </Border>
+                                    </StackPanel>
+                                    <TextBlock Text="240 MB Download • 450 MB Ổ đĩa" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                                    <TextBlock Text="Trọn bộ 24 Màn hình Dashboard, Fandom Wiki Catalog và Multi-AI Engine." FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Profile 3: Full -->
+                            <Border Grid.Column="2" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12" Margin="6,0,0,0">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="Full Enterprise" FontSize="12" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBlock Text="650 MB Download • 1.2 GB Ổ đĩa" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Text="Bao gồm đồ họa World Map độ phân giải cao và bộ âm thanh hàng hải." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- L05: Download Center Progress -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="1" CornerRadius="8" Padding="16">
+                    <StackPanel Spacing="10">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="L05: TRUNG TÂM TẢI GÓI CÀI ĐẶT (DOWNLOAD CENTER)" FontSize="12" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                                <TextBlock Text="Đang tải gói: oceanforge-desktop-4.0.0-win-x64.zip (Hỗ trợ HTTP Range &amp; Resume)" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                <Button Content="⏸ Tạm Dừng" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="10" />
+                                <Button Content="▶ Tiếp Tục" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource SeafoamBrush}" FontSize="10" />
+                                <Button Content="✕ Hủy" Padding="8,4" CornerRadius="4" Background="#2E1C20" Foreground="{StaticResource CrimsonDangerBrush}" FontSize="10" />
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Progress Bar -->
+                        <ProgressBar Value="89.7" Minimum="0" Maximum="100" Height="10" Foreground="{StaticResource CyanSignalBrush}" Background="{StaticResource Ocean950Brush}" CornerRadius="3" />
+
+                        <Grid ColumnDefinitions="*,Auto,Auto">
+                            <TextBlock Grid.Column="0" Text="215.4 MB / 240.0 MB (89.7%)" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                            <TextBlock Grid.Column="1" Text="Tốc độ: 14.2 MB/s" FontSize="11" Foreground="{StaticResource SeafoamBrush}" Margin="0,0,16,0" />
+                            <TextBlock Grid.Column="2" Text="Thời gian còn lại: ~1.8s" FontSize="11" Foreground="{StaticResource CyanSignalBrush}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- L06 & L07: Integrity Verification & Install Progress -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="16">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="L06 &amp; L07: XÁC THỰC TOÀN VẸN CHỮ KÝ SỐ SHA-256 &amp; CÀI ĐẶT" FontSize="12" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                        
+                        <Border Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="10">
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="✔ SHA-256 Hash Digest: 3fa85f9e2b10c9460a8764e6f48a12e4b3c799a45610d02b11a9b2304859a842 (MATCHED)" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                                <TextBlock Text="✔ Chữ ký số GPG / Authenticode: Validated from official release trust store" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                                <TextBlock Text="✔ Giải nén &amp; ghi danh cơ sở dữ liệu SQLite cục bộ WAL: Completed" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                                <TextBlock Text="✔ Khởi chạy kiểm tra cổng Telemetry Loopback :5088: Ready" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- L08: Finish / Launch CTA -->
+                <Border Background="#102533" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="8" Padding="16">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                            <TextBlock Text="L08: HOÀN TẤT CÀI ĐẶT THÀNH CÔNG!" FontSize="14" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                            <TextBlock Text="OceanForge Desktop v4.0.0 LTS đã được cài đặt và kiểm tra tương thích đầy đủ." FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                            <CheckBox Content="Mở OceanForge Desktop ngay sau khi hoàn tất" IsChecked="True" FontSize="11" Foreground="{StaticResource TextMutedBrush}" Margin="0,4,0,0" />
+                        </StackPanel>
+
+                        <Button Grid.Column="1" Command="{Binding SelectScreenCommand}" CommandParameter="06"
+                                Content="🚀 KHỞI CHẠY OCEANFORGE" Background="{StaticResource BrassGoldBrush}" Foreground="{StaticResource Ocean950Brush}"
+                                FontWeight="Bold" FontSize="12" Padding="20,12" CornerRadius="6" Cursor="Hand" VerticalAlignment="Center" />
+                    </Grid>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

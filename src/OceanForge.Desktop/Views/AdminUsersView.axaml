@@ -1,0 +1,65 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.AdminUsersView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <StackPanel Spacing="16">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Spacing="4">
+                    <TextBlock Text="15. QUẢN TRỊ THÀNH VIÊN &amp; PHÂN QUYỀN (RBAC ADMINISTRATION)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    <TextBlock Text="Quản lý danh sách thành viên thuyền bộ, vai trò và ma trận quyền hạn vận hành hạm đội (Server-Authoritative)." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+
+                <Button Grid.Column="1" Content="+ Thêm Thuyền Viên Mới" Background="{StaticResource BrassGoldBrush}" Foreground="{StaticResource Ocean950Brush}" FontWeight="Bold" CornerRadius="4" Padding="12,6" Cursor="Hand" FontSize="11" />
+            </Grid>
+
+            <!-- User Table -->
+            <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16">
+                <StackPanel Spacing="10">
+                    <Grid ColumnDefinitions="200,160,140,*,120">
+                        <TextBlock Grid.Column="0" Text="THUYỀN VIÊN" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="1" Text="VAI TRÒ (ROLE)" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="2" Text="TRẠNG THÁI" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="3" Text="HOẠT ĐỘNG LẦN CUỐI" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="4" Text="THAO TÁC" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Right" />
+                    </Grid>
+
+                    <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+
+                    <!-- Member Rows -->
+                    <Border Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="12,8">
+                        <Grid ColumnDefinitions="200,160,140,*,120">
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Captain Jack (Chủ sở hữu)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource BrassGoldBrush}" />
+                                <TextBlock Text="jack@oceanforge.dev" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="#261E14" CornerRadius="3" Padding="6,2" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <TextBlock Text="FLEET CAPTAIN (ADMIN)" FontSize="9" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                            </Border>
+                            <TextBlock Grid.Column="2" Text="● Hoạt động" FontSize="11" Foreground="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="3" Text="Vừa xong (Phiên hiện tại)" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="4" Text="Chủ Sở Hữu" FontSize="11" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+
+                    <Border Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="12,8">
+                        <Grid ColumnDefinitions="200,160,140,*,120">
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Navigator Minh" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" />
+                                <TextBlock Text="minh***@gmail.com" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="#102533" CornerRadius="3" Padding="6,2" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <TextBlock Text="NAVIGATOR (OPERATOR)" FontSize="9" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                            </Border>
+                            <TextBlock Grid.Column="2" Text="● Hoạt động" FontSize="11" Foreground="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="3" Text="45 phút trước" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                            <Button Grid.Column="4" Content="Sửa Quyền" Background="#1A2530" Foreground="{StaticResource TextPrimaryBrush}" CornerRadius="3" Padding="6,2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Border>
+</UserControl>

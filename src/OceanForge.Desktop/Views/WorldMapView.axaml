@@ -1,0 +1,238 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.WorldMapView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="20">
+        <StackPanel Spacing="16">
+            <!-- Header & Sea Selector -->
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Spacing="4">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="🗺️" FontSize="18" VerticalAlignment="Center" />
+                        <TextBlock Text="BẢN ĐỒ THẾ GIỚI HẢI TẶC — WORLD SEA MAP CANVAS (BLOX FRUITS UPDATE 30)" 
+                                   FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    </StackPanel>
+                    <TextBlock Text="Định vị hạm đội theo thời gian thực trên 3 vùng biển Hải Trình. Nhấp vào đảo để xem thông tin cấp độ, boss và tài khoản đang hoạt động." 
+                               FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <Button Command="{Binding SelectMapSeaCommand}" CommandParameter="All" Content="Tất Cả 3 Vùng Biển" Padding="10,6" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" />
+                    <Button Command="{Binding SelectMapSeaCommand}" CommandParameter="Sea 1" Content="Sea 1: Tân Hải Trình" Padding="10,6" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" />
+                    <Button Command="{Binding SelectMapSeaCommand}" CommandParameter="Sea 2" Content="Sea 2: Vương Quốc Rose" Padding="10,6" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" />
+                    <Button Command="{Binding SelectMapSeaCommand}" CommandParameter="Sea 3" Content="Sea 3: Đại Dương Huyền Bí" Padding="10,6" CornerRadius="4" Background="#112938" Foreground="{StaticResource BrassGoldBrush}" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Nautical Radar Status Bar -->
+            <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="14,10">
+                <Grid ColumnDefinitions="Auto,*,Auto">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="16">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="⚓" />
+                            <TextBlock Text="Vùng Biển Đang Chọn:" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="{Binding SelectedMapSea}" FontSize="11" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="🚢" />
+                            <TextBlock Text="Tàu Đang Neo Đậu:" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="{Binding ActiveAccountsCount, StringFormat='{}{0} Chiến Thuyền'}" FontSize="11" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10">
+                        <Border Background="#16382B" CornerRadius="4" Padding="8,3">
+                            <TextBlock Text="● RADAR GPS ACTIVE" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Interactive Map Grid / Islands Layout -->
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Horizontal" Spacing="16">
+
+                    <!-- SEA 3 COLUMN (Endgame / Leviathan / Tiki Outpost) -->
+                    <Border Width="380" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="1" CornerRadius="8" Padding="14">
+                        <StackPanel Spacing="12">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="SEA 3 — ĐẠI DƯƠNG HUYỀN BÍ" FontWeight="Bold" FontSize="13" Foreground="{StaticResource BrassGoldBrush}" />
+                                <Border Grid.Column="1" Background="#2A1B14" CornerRadius="3" Padding="6,2">
+                                    <TextBlock Text="Lv. 1500 - 2600" FontSize="9" FontWeight="Bold" Foreground="{StaticResource WarningBrush}" />
+                                </Border>
+                            </Grid>
+
+                            <!-- Tiki Outpost Card -->
+                            <Border Background="#0D2432" BorderBrush="{StaticResource CyanSignalBrush}" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="6">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0" Text="🏰 Tiki Outpost (Căn Cứ Săn Leviathan)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource CyanSignalBrush}" />
+                                        <TextBlock Grid.Column="1" Text="Lv. 2450+" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </Grid>
+                                    <TextBlock Text="Khu vực đóng tàu thám hiểm biển sâu, rèn mỏ neo Shark Anchor và giao nạp tim Leviathan." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                    <!-- Active accounts here -->
+                                    <Border Background="#122B3B" CornerRadius="4" Padding="8,4">
+                                        <TextBlock Text="🚢 Đang hiện diện: CaptainKha_77 (Kitsune 600)" FontSize="10" Foreground="{StaticResource GoldLightBrush}" FontWeight="SemiBold" />
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Sea of Treats Card -->
+                            <Border Background="#0E2331" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="6">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0" Text="🍭 Sea of Treats (Biển Bánh Kẹo)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Grid.Column="1" Text="Lv. 2075-2275" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </Grid>
+                                    <TextBlock Text="Đảo Bánh Kẹo, Dough King Raid, farm nguyên liệu Cacao và Chalice." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                    <Border Background="#122B3B" CornerRadius="4" Padding="8,4">
+                                        <TextBlock Text="🚢 Đang hiện diện: AbyssalRider_VN (Dragon 580)" FontSize="10" Foreground="{StaticResource GoldLightBrush}" FontWeight="SemiBold" />
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Floating Turtle Card -->
+                            <Border Background="#0E2331" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0" Text="🐢 Floating Turtle (Rùa Khổng Lồ &amp; Dinh Thự)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Grid.Column="1" Text="Lv. 1775-2000" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </Grid>
+                                    <TextBlock Text="Mansion an toàn, NPC nhiệm vụ Rip_Indra, lối vào Great Tree và Đền Thời Gian (Temple of Time V4)." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Haunted Castle Card -->
+                            <Border Background="#0E2331" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0" Text="👻 Haunted Castle (Lâu Đài Ma Quái)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Grid.Column="1" Text="Lv. 1975-2075" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </Grid>
+                                    <TextBlock Text="Vùng đất Soul Reaper, Death King bốc thăm Bones, chế tạo súng Thần Soul Guitar." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Hydra Island Card -->
+                            <Border Background="#0E2331" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0" Text="🐍 Hydra Island (Đảo Rắn Nữ Hoàng)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Grid.Column="1" Text="Lv. 1575-1700" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </Grid>
+                                    <TextBlock Text="Thác nước bí mật cất giấu thanh bảo kiếm Tushita và di tích cổ đại." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- SEA 2 COLUMN (The Cafe / Green Zone / Raids) -->
+                    <Border Width="380" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="14">
+                        <StackPanel Spacing="12">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="SEA 2 — VƯƠNG QUỐC ROSE &amp; RAIDS" FontWeight="Bold" FontSize="13" Foreground="{StaticResource CyanSignalBrush}" />
+                                <Border Grid.Column="1" Background="#1B2533" CornerRadius="3" Padding="6,2">
+                                    <TextBlock Text="Lv. 700 - 1500" FontSize="9" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                                </Border>
+                            </Grid>
+
+                            <!-- Green Zone Card -->
+                            <Border Background="#0D2432" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="6">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0" Text="🌿 Green Zone (Vùng Đất Cây Khổng Lồ)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource SeafoamBrush}" />
+                                        <TextBlock Grid.Column="1" Text="Lv. 875-925" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </Grid>
+                                    <TextBlock Text="Nhiệm vụ Alchemist nâng cấp Tộc V2/V3, Boss Fajita, cầu kết nối Vương quốc Rose." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                    <Border Background="#122B3B" CornerRadius="4" Padding="8,4">
+                                        <TextBlock Text="🚢 Đang hiện diện: Corsair_Ghost (Portal 400)" FontSize="10" Foreground="{StaticResource GoldLightBrush}" FontWeight="SemiBold" />
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- The Cafe Card -->
+                            <Border Background="#0E2331" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0" Text="☕ The Cafe (Quán Trọ Trung Tâm An Toàn)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Grid.Column="1" Text="Vùng An Toàn" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                                    </Grid>
+                                    <TextBlock Text="Khu vực giao dịch Trái Ác Quỷ, NPC kiểm tra Nerd, lối vào đấu trường Colosseum." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Hot and Cold Card -->
+                            <Border Background="#0E2331" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0" Text="🔥❄️ Hot and Cold (Đảo Lửa &amp; Băng)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Grid.Column="1" Text="Lv. 1100-1250" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </Grid>
+                                    <TextBlock Text="Phòng thí nghiệm bí mật, Raid Thức tỉnh Trái Ác Quỷ (Fruit Awakening), Boss Smoke Admiral." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Cursed Ship Card -->
+                            <Border Background="#0E2331" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0" Text="☠️ Cursed Ship (Tàu Ma Bị Nguyền Rủa)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Grid.Column="1" Text="Lv. 1000-1325" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </Grid>
+                                    <TextBlock Text="Farm linh hồn Ectoplasm, sở hữu kiếm Midnight Blade và tộc Ghoul." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- SEA 1 COLUMN (First Sea / Old World) -->
+                    <Border Width="380" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="8" Padding="14">
+                        <StackPanel Spacing="12">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="SEA 1 — TÂN HẢI TRÌNH KHỞI NGUYÊN" FontWeight="Bold" FontSize="13" Foreground="{StaticResource SeafoamBrush}" />
+                                <Border Grid.Column="1" Background="#16382B" CornerRadius="3" Padding="6,2">
+                                    <TextBlock Text="Lv. 1 - 700" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                </Border>
+                            </Grid>
+
+                            <!-- Skylands Card -->
+                            <Border Background="#0E2331" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0" Text="☁️ Skylands (Đảo Trên Trời Skypiea)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Grid.Column="1" Text="Lv. 150-190" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </Grid>
+                                    <TextBlock Text="Đền thờ Sấm Sét Enel, Haki Quan Sát (Observation Haki V1) và kiếm Bisento." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Marine Fortress Card -->
+                            <Border Background="#0E2331" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0" Text="⚓ Marine Fortress (Pháo Đài Hải Quân)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Grid.Column="1" Text="Lv. 120-150" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </Grid>
+                                    <TextBlock Text="Boss Vice Admiral, hắc đao Grey Coat và đại bác pháo binh hạng nặng." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Fountain City Card -->
+                            <Border Background="#0E2331" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0" Text="⛲ Fountain City (Thành Phố Đài Phun Nước)" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Grid.Column="1" Text="Lv. 625-700" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </Grid>
+                                    <TextBlock Text="Vùng ranh giới cuối cùng của Sea 1, Boss Cyborg, cổng bước sang Sea 2." FontSize="10" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </StackPanel>
+    </Border>
+</UserControl>

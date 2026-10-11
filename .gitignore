@@ -1,0 +1,53 @@
+# Build outputs
+bin/
+obj/
+artifacts/
+publish/
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+*.userprefs
+*.sln.docstates
+
+# .NET
+*.nupkg
+*.snupkg
+project.lock.json
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Secrets — never commit
+.env
+.env.*
+*.pfx
+*.p12
+*.key
+appsettings.Production.json
+appsettings.Staging.json
+
+# SQLite runtime data
+*.db
+*.db-wal
+*.db-shm
+
+# Logs and dumps
+*.log
+*.dmp
+*.dump
+
+# Packages
+*.zip
+*.tar.gz
+*.nupkg
+
+# Serena
+.serena/
+
+# Misc
+oceanforge.zip

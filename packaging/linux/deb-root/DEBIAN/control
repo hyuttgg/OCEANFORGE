@@ -1,0 +1,10 @@
+Package: oceanforge-desktop
+Version: __VERSION__
+Section: utils
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.35), libstdc++6, libgcc-s1, libx11-6, libice6, libsm6, libfontconfig1, libfreetype6
+Maintainer: OceanForge Engineering <security@oceanforge.local>
+Description: OceanForge Desktop — Abyssal Tactical Command Center
+ Cross-platform desktop telemetry, multi-AI debate, and fleet management
+ client built with .NET 10 LTS and Avalonia UI.

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=OceanForge Desktop
+Comment=Abyssal Tactical Command Center
+Exec=/usr/bin/oceanforge
+Icon=oceanforge
+Terminal=false
+Categories=Utility;Development;
+StartupWMClass=OceanForge.Desktop

@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.TeamMessagesView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <Grid ColumnDefinitions="240,*" RowDefinitions="Auto,*">
+            <StackPanel Grid.ColumnSpan="2" Grid.Row="0" Spacing="4" Margin="0,0,0,16">
+                <TextBlock Text="22. TIN NHẮN ĐIỀU PHỐI HẠM ĐỘI (FLEET CHAT &amp; COLLABORATION)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                <TextBlock Text="Kênh liên lạc nội bộ giữa các thuyền trưởng phối hợp săn Boss, mở cổng Leviathan và chia sẻ tín hiệu biển." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+            </StackPanel>
+
+            <!-- Channels Rail (Col 0) -->
+            <Border Grid.Column="0" Grid.Row="1" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,10,0">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="KÊNH LIÊN LẠC" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                    
+                    <Border Background="#112938" CornerRadius="4" Padding="10,6">
+                        <TextBlock Text="# kenh-tong-hop" FontSize="11" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                    </Border>
+
+                    <Border Background="Transparent" CornerRadius="4" Padding="10,6">
+                        <TextBlock Text="# san-boss-leviathan" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                    </Border>
+
+                    <Border Background="Transparent" CornerRadius="4" Padding="10,6">
+                        <TextBlock Text="# thuc-tinh-toc-v4" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Messages Stream & Composer (Col 1) -->
+            <Border Grid.Column="1" Grid.Row="1" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16">
+                <Grid RowDefinitions="*,Auto">
+                    <!-- Stream -->
+                    <ScrollViewer Grid.Row="0" Margin="0,0,0,12">
+                        <StackPanel Spacing="10">
+                            <!-- Msg 1 -->
+                            <StackPanel Spacing="2">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Text="CaptainKha_77" FontWeight="Bold" FontSize="12" Foreground="{StaticResource BrassGoldBrush}" />
+                                    <TextBlock Text="10:01 UTC" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                                <TextBlock Text="Đã sẵn sàng tại Tiki Outpost với Shark Anchor. Cần thêm 2 thuyền viên có tộc Cyborg V4 mở cổng biển sâu!" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                            </StackPanel>
+
+                            <!-- Msg 2 -->
+                            <StackPanel Spacing="2">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Text="AbyssalRider_VN" FontWeight="Bold" FontSize="12" Foreground="{StaticResource GoldLightBrush}" />
+                                    <TextBlock Text="10:02 UTC" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                                <TextBlock Text="Tôi đang qua Sea of Treats, đã có Dragon Mastery 580 sẵn sàng hỗ trợ tank máu Boss!" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- Composer -->
+                    <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
+                        <TextBox Grid.Column="0" PlaceholderText="Nhập tin nhắn chỉ huy..." Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" CornerRadius="4" Padding="10,8" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,8,0" />
+                        <Button Grid.Column="1" Content="Gửi ➔" Background="{StaticResource BrassGoldBrush}" Foreground="{StaticResource Ocean950Brush}" FontWeight="Bold" CornerRadius="4" Padding="14,8" Cursor="Hand" />
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

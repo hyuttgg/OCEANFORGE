@@ -1,0 +1,120 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.AnalyticsView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <ScrollViewer>
+            <StackPanel Spacing="18">
+                <!-- Header Toolbar -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0" Spacing="4">
+                        <TextBlock Text="10. TRUNG TÂM PHÂN TÍCH &amp; XU HƯỚNG (ANALYTICS ENGINE)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                        <TextBlock Text="Đo lường xu hướng tăng trưởng Level, tích lũy tài sản Beli/Fragments và độ ổn định hạm đội từ SQLite Local Cache." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                    </StackPanel>
+
+                    <!-- Time Range Selector -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                        <Button Content="Hôm Nay (24h)" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource CyanSignalBrush}" FontSize="11" />
+                        <Button Content="7 Ngày Qua" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                        <Button Content="30 Ngày" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                        <Button Content="Tất Cả" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                    </StackPanel>
+                </Grid>
+
+                <!-- Aggregated Summary KPI Cards -->
+                <Grid ColumnDefinitions="*,*,*,*">
+                    <Border Grid.Column="0" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="14" Margin="0,0,10,0">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="TỔNG TÀI SẢN BELI" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="265.2M 💰" FontSize="22" FontWeight="Bold" Foreground="#4ADE80" />
+                            <TextBlock Text="+14.2M trong 24h qua" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="14" Margin="0,0,10,0">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="TỔNG MẢNH FRAGMENTS" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="133.1K 🟣" FontSize="22" FontWeight="Bold" Foreground="#C084FC" />
+                            <TextBlock Text="+8.5K từ Raid Boss" FontSize="10" Foreground="{StaticResource CyanSignalBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="2" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="14" Margin="0,0,10,0">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="CẤP ĐỘ TRUNG BÌNH" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="Lv. 2,450" FontSize="22" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                            <TextBlock Text="92% đạt mốc Sea 3" FontSize="10" Foreground="{StaticResource BrassGoldBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="3" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="14">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="ĐỘ ỔN ĐỊNH TELEMETRY" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="99.8% UPTIME" FontSize="22" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                            <TextBlock Text="0 packet bị drop" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Chart Frames (Simulated Visualizations) -->
+                <Grid ColumnDefinitions="*,*">
+                    <!-- Chart 1: Wealth Accumulation -->
+                    <Border Grid.Column="0" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16" Margin="0,0,10,0">
+                        <StackPanel Spacing="12">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="📈 Biểu Đồ Tích Lũy Beli &amp; Fragments" FontWeight="Bold" FontSize="12" Foreground="{StaticResource BrassGoldBrush}" />
+                                <TextBlock Grid.Column="1" Text="Đơn vị: Triệu Beli" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            </Grid>
+                            
+                            <!-- Graphic Mockup Area -->
+                            <Border Height="180" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="4" Padding="14">
+                                <Grid RowDefinitions="*,*,*,*">
+                                    <TextBlock Grid.Row="0" Text="300M ─" FontSize="9" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Grid.Row="1" Text="200M ─" FontSize="9" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Grid.Row="2" Text="100M ─" FontSize="9" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Grid.Row="3" Text="  0M ─" FontSize="9" Foreground="{StaticResource TextMutedBrush}" />
+                                    <!-- Trend lines placeholder -->
+                                    <Canvas>
+                                        <Line StartPoint="40,140" EndPoint="120,110" Stroke="#4ADE80" StrokeThickness="2" />
+                                        <Line StartPoint="120,110" EndPoint="200,80" Stroke="#4ADE80" StrokeThickness="2" />
+                                        <Line StartPoint="200,80" EndPoint="280,60" Stroke="#4ADE80" StrokeThickness="2" />
+                                        <Line StartPoint="280,60" EndPoint="360,35" Stroke="#4ADE80" StrokeThickness="2" />
+                                    </Canvas>
+                                </Grid>
+                            </Border>
+                            <TextBlock Text="Dữ liệu tổng hợp từ 3 tài khoản trong hạm đội theo chu kỳ 15 phút." FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Chart 2: Telemetry Throughput -->
+                    <Border Grid.Column="1" Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16">
+                        <StackPanel Spacing="12">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="⚡ Thông Lượng Telemetry &amp; Checksum Rate" FontWeight="Bold" FontSize="12" Foreground="{StaticResource CyanSignalBrush}" />
+                                <TextBlock Grid.Column="1" Text="Đơn vị: pkt/s" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            </Grid>
+
+                            <Border Height="180" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="4" Padding="14">
+                                <Grid RowDefinitions="*,*,*,*">
+                                    <TextBlock Grid.Row="0" Text="100 pkt/s ─" FontSize="9" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Grid.Row="1" Text=" 50 pkt/s ─" FontSize="9" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Grid.Row="2" Text=" 20 pkt/s ─" FontSize="9" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Grid.Row="3" Text="  0 pkt/s ─" FontSize="9" Foreground="{StaticResource TextMutedBrush}" />
+                                    <Canvas>
+                                        <Line StartPoint="40,130" EndPoint="120,70" Stroke="{StaticResource CyanSignalBrush}" StrokeThickness="2" />
+                                        <Line StartPoint="120,70" EndPoint="200,85" Stroke="{StaticResource CyanSignalBrush}" StrokeThickness="2" />
+                                        <Line StartPoint="200,85" EndPoint="280,40" Stroke="{StaticResource CyanSignalBrush}" StrokeThickness="2" />
+                                        <Line StartPoint="280,40" EndPoint="360,50" Stroke="{StaticResource CyanSignalBrush}" StrokeThickness="2" />
+                                    </Canvas>
+                                </Grid>
+                            </Border>
+                            <TextBlock Text="Độ trễ trung bình: 0.12 ms qua FNV-1a Checksum và BoundedChannel." FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

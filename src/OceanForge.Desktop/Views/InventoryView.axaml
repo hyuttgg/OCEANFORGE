@@ -1,0 +1,72 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.InventoryView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <StackPanel Spacing="16">
+            <!-- Header -->
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Spacing="4">
+                    <TextBlock Text="08. KHO BÁU VẬT PHẨM &amp; NGUYÊN LIỆU (BLOX FRUITS WIKI INVENTORY)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    <TextBlock Text="Duyệt kho 7 danh mục: Trái Ác Quỷ, Kiếm, Súng, Võ Thuật, Phụ Kiện, Nguyên Liệu và Tộc V4. Dữ liệu chuẩn từ Fandom Wiki Blox Fruits." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+
+                <!-- Category Pills -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <Button Command="{Binding FilterCatalogCommand}" CommandParameter="All" Content="Tất Cả" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                    <Button Command="{Binding FilterCatalogCommand}" CommandParameter="Fruit" Content="🍎 Trái" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                    <Button Command="{Binding FilterCatalogCommand}" CommandParameter="Sword" Content="⚔️ Kiếm" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                    <Button Command="{Binding FilterCatalogCommand}" CommandParameter="Gun" Content="🔫 Súng" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                    <Button Command="{Binding FilterCatalogCommand}" CommandParameter="FightingStyle" Content="🥋 Võ" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                    <Button Command="{Binding FilterCatalogCommand}" CommandParameter="Accessory" Content="🛡️ Phụ Kiện" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                    <Button Command="{Binding FilterCatalogCommand}" CommandParameter="Material" Content="💎 Nguyên Liệu" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                    <Button Command="{Binding FilterCatalogCommand}" CommandParameter="Race" Content="🧬 Tộc V4" Padding="8,4" CornerRadius="4" Background="#112938" Foreground="{StaticResource BrassGoldBrush}" FontSize="11" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Items Virtualized/Paged Grid -->
+            <ScrollViewer MaxHeight="650">
+                <ItemsControl ItemsSource="{Binding CatalogItems}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="14,12" Margin="0,0,0,10">
+                                <Grid ColumnDefinitions="*,260">
+                                    <StackPanel Grid.Column="0" Spacing="6">
+                                        <StackPanel Orientation="Horizontal" Spacing="10">
+                                            <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                                            <Border Background="#2A1B14" BorderBrush="{StaticResource WarningBrush}" BorderThickness="1" CornerRadius="3" Padding="6,2">
+                                                <TextBlock Text="{Binding Rarity}" FontSize="10" FontWeight="Bold" Foreground="{StaticResource WarningBrush}" />
+                                            </Border>
+                                            <Border Background="#102533" BorderBrush="{StaticResource CyanSignalBrush}" BorderThickness="1" CornerRadius="3" Padding="6,2">
+                                                <TextBlock Text="{Binding Sea}" FontSize="10" Foreground="{StaticResource CyanSignalBrush}" />
+                                            </Border>
+                                        </StackPanel>
+                                        
+                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" LineHeight="16" />
+                                        
+                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                            <TextBlock Text="📍 Cách sở hữu:" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                                            <TextBlock Text="{Binding AcquisitionMethod}" TextWrapping="Wrap" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Spacing="4">
+                                        <Border Background="#122B3B" CornerRadius="4" Padding="10,6">
+                                            <StackPanel Spacing="2">
+                                                <TextBlock Text="CHỈ SỐ BUFF &amp; NĂNG LỰC:" FontSize="9" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                                                <TextBlock Text="{Binding BuffStats}" TextWrapping="Wrap" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <TextBlock Text="{Binding BasePriceBeli, StringFormat='{}Giá Beli: {0:N0} 💰'}" FontSize="10" Foreground="#4ADE80" HorizontalAlignment="Right" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </StackPanel>
+    </Border>
+</UserControl>

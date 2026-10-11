@@ -1,0 +1,117 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.FleetView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <StackPanel Spacing="16">
+            <!-- Header Toolbar -->
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <StackPanel Grid.Column="0" Spacing="2">
+                    <TextBlock Text="05. QUẢN LÝ HẠM ĐỘI HẢI TẶC (FLEET MANAGER)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    <TextBlock Text="Giám sát danh sách tài khoản, trạng thái farm, cấp độ và số dư tài chính theo thời gian thực." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+
+                <!-- Action Buttons -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <Button Command="{Binding SimulateRobloxTelemetryCommand}"
+                            Background="#112B3B" BorderBrush="{StaticResource CyanSignalBrush}" BorderThickness="1"
+                            Foreground="{StaticResource CyanSignalBrush}" CornerRadius="4" Padding="12,6" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="⚡" />
+                            <TextBlock Text="Mô Phỏng Telemetry" FontWeight="SemiBold" FontSize="11" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Command="{Binding RefreshMetricsCommand}"
+                            Background="{StaticResource Ocean800Brush}" Foreground="{StaticResource TextPrimaryBrush}"
+                            CornerRadius="4" Padding="12,6" Cursor="Hand">
+                        <TextBlock Text="🔄 Làm Mới" FontWeight="SemiBold" FontSize="11" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- Filters Bar -->
+            <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="14,10">
+                <Grid ColumnDefinitions="Auto,*,Auto">
+                    <!-- Sea Filters -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                        <TextBlock Text="Vùng Biển:" FontSize="11" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" Margin="0,0,4,0" />
+                        <Button Command="{Binding SetSeaFilterCommand}" CommandParameter="All" Content="Tất Cả" Padding="8,4" CornerRadius="3" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                        <Button Command="{Binding SetSeaFilterCommand}" CommandParameter="Sea 1" Content="Sea 1" Padding="8,4" CornerRadius="3" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                        <Button Command="{Binding SetSeaFilterCommand}" CommandParameter="Sea 2" Content="Sea 2" Padding="8,4" CornerRadius="3" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                        <Button Command="{Binding SetSeaFilterCommand}" CommandParameter="Sea 3" Content="Sea 3" Padding="8,4" CornerRadius="3" Background="#112938" Foreground="{StaticResource BrassGoldBrush}" FontSize="11" />
+                    </StackPanel>
+
+                    <!-- Search Input -->
+                    <TextBox Grid.Column="1" Text="{Binding SearchQuery}" PlaceholderText="Tìm kiếm theo tên account, trái ác quỷ, vị trí..." Margin="20,0" VerticalAlignment="Center" Background="{StaticResource Ocean950Brush}" Foreground="{StaticResource TextPrimaryBrush}" BorderBrush="{StaticResource Ocean800Brush}" CornerRadius="4" Padding="10,6" />
+
+                    <!-- Count Info -->
+                    <TextBlock Grid.Column="2" Text="{Binding FilteredAccounts.Count, StringFormat='{}Hiển thị {0} tàu'}" FontSize="11" Foreground="{StaticResource SeafoamBrush}" VerticalAlignment="Center" FontWeight="SemiBold" />
+                </Grid>
+            </Border>
+
+            <!-- Fleet Table -->
+            <ScrollViewer MaxHeight="600">
+                <ItemsControl ItemsSource="{Binding FilteredAccounts}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="14,10" Margin="0,0,0,8">
+                                <Grid ColumnDefinitions="180,80,140,140,140,*,110,80">
+                                    <!-- Account Name -->
+                                    <StackPanel Grid.Column="0" Spacing="2">
+                                        <TextBlock Text="{Binding RobloxUsername}" FontWeight="Bold" FontSize="13" Foreground="{StaticResource BrassGoldBrush}" />
+                                        <TextBlock Text="{Binding ChecksumHash, StringFormat='{}Hash: #{0}'}" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </StackPanel>
+
+                                    <!-- Level -->
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="Lv." FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                        <TextBlock Text="{Binding Level}" FontWeight="Bold" FontSize="13" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    </StackPanel>
+
+                                    <!-- Wealth -->
+                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" Spacing="2">
+                                        <TextBlock Text="{Binding Beli, StringFormat='{}{0:N0} 💰'}" FontSize="11" Foreground="#4ADE80" FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding Fragments, StringFormat='{}{0:N0} 🟣'}" FontSize="11" Foreground="#C084FC" FontWeight="SemiBold" />
+                                    </StackPanel>
+
+                                    <!-- Sea & Location -->
+                                    <StackPanel Grid.Column="3" VerticalAlignment="Center" Spacing="2">
+                                        <TextBlock Text="{Binding Sea}" FontSize="11" Foreground="{StaticResource CyanSignalBrush}" FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding Location}" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </StackPanel>
+
+                                    <!-- Fruit & Sword -->
+                                    <StackPanel Grid.Column="4" VerticalAlignment="Center" Spacing="2">
+                                        <TextBlock Text="{Binding Fruit}" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding Sword}" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </StackPanel>
+
+                                    <!-- Status -->
+                                    <StackPanel Grid.Column="5" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Status}" FontSize="12" Foreground="{StaticResource SeafoamBrush}" FontWeight="SemiBold" />
+                                    </StackPanel>
+
+                                    <!-- Online Badge -->
+                                    <Border Grid.Column="6" HorizontalAlignment="Right" VerticalAlignment="Center" Background="#16382B" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="4" Padding="8,4">
+                                        <TextBlock Text="● ONLINE" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                    </Border>
+
+                                    <!-- Inspect Button -->
+                                    <Button Grid.Column="7" Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).OpenAccountDetailCommand}" CommandParameter="{Binding}"
+                                            HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Background="#122B3B" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="1"
+                                            CornerRadius="4" Padding="8,4" Cursor="Hand">
+                                        <TextBlock Text="🔍 Chi tiết" FontSize="10" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </StackPanel>
+    </Border>
+</UserControl>

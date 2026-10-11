@@ -1,0 +1,200 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.SignInView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource AbyssBrush}" Padding="24">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <Grid ColumnDefinitions="460,*" Margin="0,8">
+
+                <!-- ═══════════════════════════════════════════════════════════════ -->
+                <!-- LEFT COLUMN: WELCOME TO OCEANFORGE LOGIN CARD (SECTION 3)       -->
+                <!-- ═══════════════════════════════════════════════════════════════ -->
+                <Border Grid.Column="0" Background="{StaticResource Ocean900Brush}"
+                        BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="1"
+                        CornerRadius="8" Padding="28" VerticalAlignment="Top" Margin="0,0,16,0">
+                    <StackPanel Spacing="15">
+                        <!-- Brand Header -->
+                        <StackPanel Spacing="5" HorizontalAlignment="Center">
+                            <TextBlock Text="⚓ OCEANFORGE" FontSize="22" FontWeight="Bold" LetterSpacing="2"
+                                       Foreground="{StaticResource BrassGoldBrush}" HorizontalAlignment="Center" />
+                            <TextBlock Text="COMMAND THE DIGITAL FLEET" FontSize="11" FontWeight="SemiBold" LetterSpacing="1"
+                                       Foreground="{StaticResource CyanSignalBrush}" HorizontalAlignment="Center" />
+                            <TextBlock Text="OAuth 2.0 / OpenID Connect • PKCE (S256) • Multi-Provider Identity"
+                                       FontSize="10" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Center" />
+                        </StackPanel>
+
+                        <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+
+                        <!-- Continue with Google & Continue with Discord (Section 3.1 & 3.2) -->
+                        <StackPanel Spacing="10">
+                            <Button Command="{Binding LoginGoogleCommand}"
+                                    Background="#111C35" BorderBrush="#2E4A7D" BorderThickness="1"
+                                    CornerRadius="6" Padding="14,11" Cursor="Hand"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <TextBlock Text="G" FontSize="14" FontWeight="Bold" Foreground="#EA4335" VerticalAlignment="Center" />
+                                    <TextBlock Text="Continue with Google (OAuth 2.0 + OIDC)" FontWeight="SemiBold" FontSize="12"
+                                               Foreground="#F3F6FA" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Command="{Binding LoginDiscordCommand}"
+                                    Background="#1B2148" BorderBrush="#5865F2" BorderThickness="1"
+                                    CornerRadius="6" Padding="14,11" Cursor="Hand"
+                                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <TextBlock Text="◉" FontSize="14" FontWeight="Bold" Foreground="#5865F2" VerticalAlignment="Center" />
+                                    <TextBlock Text="Continue with Discord (OAuth 2.0)" FontWeight="SemiBold" FontSize="12"
+                                               Foreground="#F3F6FA" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+
+                        <Grid ColumnDefinitions="*,Auto,*" Margin="0,2">
+                            <Separator Grid.Column="0" Background="{StaticResource Ocean800Brush}" Height="1" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="1" Text="───── OR ─────" FontSize="10" FontWeight="Bold"
+                                       Foreground="{StaticResource TextMutedBrush}" Margin="10,0" />
+                            <Separator Grid.Column="2" Background="{StaticResource Ocean800Brush}" Height="1" VerticalAlignment="Center" />
+                        </Grid>
+
+                        <!-- Email / Password Inputs -->
+                        <StackPanel Spacing="10">
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="Email" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                                <TextBox Text="{Binding UserEmail}" PlaceholderText="captain@example.com"
+                                         Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}"
+                                         CornerRadius="4" Padding="10,8" Foreground="{StaticResource TextPrimaryBrush}" />
+                            </StackPanel>
+
+                            <StackPanel Spacing="4">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Grid.Column="0" Text="Password" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Grid.Column="1" Text="Forgot password?" FontSize="10" Foreground="{StaticResource CyanSignalBrush}" Cursor="Hand" />
+                                </Grid>
+                                <TextBox PasswordChar="•" PlaceholderText="••••••••••••"
+                                         Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}"
+                                         CornerRadius="4" Padding="10,8" Foreground="{StaticResource TextPrimaryBrush}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Sign In Button -->
+                        <Button Command="{Binding SelectScreenCommand}" CommandParameter="06"
+                                Background="#D4AF37" Foreground="#020617"
+                                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                Padding="14,10" CornerRadius="6" Cursor="Hand">
+                            <TextBlock Text="Sign In ➔" FontWeight="Bold" FontSize="13" />
+                        </Button>
+
+                        <!-- PKCE & Loopback Callback Status -->
+                        <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}"
+                                BorderThickness="1" CornerRadius="6" Padding="10,8">
+                            <StackPanel Spacing="3">
+                                <TextBlock Text="🔐 PKCE S256 &amp; Loopback Callback:" FontSize="10" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                                <TextBlock Text="Redirect URI: http://127.0.0.1:5088/api/auth/callback" FontSize="10" FontFamily="Consolas, monospace" Foreground="{StaticResource TextPrimaryBrush}" />
+                                <TextBlock Text="{Binding PkceChallengePreview}" FontSize="9" FontFamily="Consolas, monospace" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Security Notice -->
+                        <Border Background="#10251B" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="4" Padding="10,6">
+                            <TextBlock Text="🛡️ ZERO-ROBLOX CREDENTIAL POLICY: OceanForge xác thực qua Google/Discord OAuth 2.0 + PKCE và tuyệt đối không lưu mật khẩu hay cookie Roblox."
+                                       FontSize="10" Foreground="{StaticResource SeafoamBrush}" TextWrapping="Wrap" />
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- ═══════════════════════════════════════════════════════════════ -->
+                <!-- RIGHT COLUMN: LINKED IDENTITIES, WELCOME EMAIL & AUDIT LOGS     -->
+                <!-- ═══════════════════════════════════════════════════════════════ -->
+                <StackPanel Grid.Column="1" Spacing="14">
+
+                    <!-- Card 1: Connected Accounts & Unlink Protection (Sections 24 & 25) -->
+                    <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}"
+                            BorderThickness="1" CornerRadius="8" Padding="18">
+                        <StackPanel Spacing="10">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel Grid.Column="0" Spacing="2">
+                                    <TextBlock Text="🔗 CONNECTED ACCOUNTS &amp; MULTI-PROVIDER LINKING" FontSize="13" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                                    <TextBlock Text="Liên kết cả Google và Discord vào cùng 1 tài khoản OceanForge. Có bảo vệ chống gỡ phương thức đăng nhập cuối cùng (Unlink Protection)."
+                                               FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                    <Button Command="{Binding LinkSecondaryGoogleCommand}" Content="+ Link Google" FontSize="10" Padding="8,5"
+                                            Background="#111C35" BorderBrush="#2E4A7D" BorderThickness="1" Foreground="#F3F6FA" CornerRadius="4" Cursor="Hand" />
+                                    <Button Command="{Binding LinkSecondaryDiscordCommand}" Content="+ Link Discord" FontSize="10" Padding="8,5"
+                                            Background="#1B2148" BorderBrush="#5865F2" BorderThickness="1" Foreground="#F3F6FA" CornerRadius="4" Cursor="Hand" />
+                                    <Button Command="{Binding TestUnlinkProviderCommand}" Content="Test Unlink Protection" FontSize="10" Padding="8,5"
+                                            Background="#2E1C20" BorderBrush="{StaticResource CrimsonDangerBrush}" BorderThickness="1" Foreground="{StaticResource CrimsonDangerBrush}" CornerRadius="4" Cursor="Hand" />
+                                </StackPanel>
+                            </Grid>
+
+                            <ItemsControl ItemsSource="{Binding ConnectedIdentities}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}"
+                                                BorderThickness="1" CornerRadius="4" Padding="10,6" Margin="0,0,0,4">
+                                            <Grid ColumnDefinitions="100,*,Auto">
+                                                <TextBlock Grid.Column="0" Text="{Binding Provider}" FontWeight="Bold" FontSize="11" Foreground="{StaticResource CyanSignalBrush}" VerticalAlignment="Center" />
+                                                <TextBlock Grid.Column="1" Text="{Binding ProviderEmail}" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                                <TextBlock Grid.Column="2" Text="✔ Connected (Verified)" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Card 2: Transactional Registration Email Notification (Sections 13–21) -->
+                    <Border Background="#0B1329" BorderBrush="#D4AF37" BorderThickness="1" CornerRadius="8" Padding="18">
+                        <StackPanel Spacing="8">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel Grid.Column="0" Spacing="2">
+                                    <TextBlock Text="📧 REGISTRATION NOTIFICATION EMAIL (ABYSSAL OCEAN TEMPLATE)" FontSize="13" FontWeight="Bold" Foreground="#D4AF37" />
+                                    <TextBlock Text="From: OceanForge &lt;no-reply@oceanforge.app&gt; • Subject: Welcome to OceanForge — Account Created Successfully"
+                                               FontSize="10" Foreground="#5BC0BE" />
+                                </StackPanel>
+                                <Border Grid.Column="1" Background="#10251B" BorderBrush="#10B981" BorderThickness="1" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding LastEmailDeliveryStatus}" FontSize="10" FontWeight="Bold" Foreground="#10B981" />
+                                </Border>
+                            </Grid>
+
+                            <Border Background="#020617" BorderBrush="#1E293B" BorderThickness="1" CornerRadius="6" Padding="14,10">
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="⚓ OCEANFORGE — ACCOUNT REGISTRATION CONFIRMED" FontSize="12" FontWeight="Bold" Foreground="#D4AF37" />
+                                    <TextBlock Text="{Binding LastWelcomeEmailSummary}" FontSize="11" Foreground="#F3F6FA" TextWrapping="Wrap" />
+                                    <TextBlock Text="Retry Policy: Attempt 1 (Immediate) -> Attempt 2 (10s) -> Attempt 3 (30s) -> Attempt 4 (2m) -> DEAD LETTER QUEUE"
+                                               FontSize="9" Foreground="#64748B" Margin="0,4,0,0" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Card 3: Security Audit Logs (Section 23) -->
+                    <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}"
+                            BorderThickness="1" CornerRadius="8" Padding="18">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="🛡️ SECURITY AUDIT LOGS (ZERO SECRETS LOGGED)" FontSize="12" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                            <ItemsControl ItemsSource="{Binding SecurityAuditLogs}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="8,4" Margin="0,0,0,4">
+                                            <Grid ColumnDefinitions="130,80,*">
+                                                <TextBlock Grid.Column="0" Text="{Binding EventType}" FontSize="10" FontWeight="Bold" FontFamily="Consolas, monospace" Foreground="{StaticResource GoldLightBrush}" />
+                                                <TextBlock Grid.Column="1" Text="{Binding Provider}" FontSize="10" Foreground="{StaticResource CyanSignalBrush}" />
+                                                <TextBlock Grid.Column="2" Text="{Binding Details}" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" TextTrimming="CharacterEllipsis" />
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Border>
+</UserControl>

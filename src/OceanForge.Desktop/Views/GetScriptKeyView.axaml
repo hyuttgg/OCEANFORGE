@@ -1,0 +1,334 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.GetScriptKeyView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="18">
+
+                <!-- ═══════════════════════════════════════════════════════════════ -->
+                <!-- HEADER BANNER (00_header.png)                                   -->
+                <!-- ═══════════════════════════════════════════════════════════════ -->
+                <Border Background="{StaticResource Ocean900Brush}"
+                        BorderBrush="{StaticResource BrassGoldBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="20,16">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="4">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <TextBlock Text="🔑" FontSize="20" VerticalAlignment="Center" />
+                                <TextBlock Text="OCEANFORGE GET SCRIPT LUA &amp; KEY MANAGER"
+                                           FontSize="17" FontWeight="Bold" LetterSpacing="1"
+                                           Foreground="{StaticResource BrassGoldBrush}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <TextBlock Text="Tự động dán Key + Operating System dạng JSON • Mã hóa nguồn Lua (XOR ByteTable) • Thuật toán Tạo Key, Hủy Key &amp; Chống Spam"
+                                       FontSize="11" Foreground="{StaticResource CyanSignalBrush}" />
+                        </StackPanel>
+
+                        <Border Grid.Column="1" Background="#16382B" BorderBrush="{StaticResource SeafoamBrush}"
+                                BorderThickness="1" CornerRadius="4" Padding="12,6" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding ScriptKeyStatusBadge}" FontSize="11" FontWeight="Bold"
+                                           Foreground="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- ═══════════════════════════════════════════════════════════════ -->
+                <!-- ROW 1: MAIN "GET SCRIPT LUA" CARD + SYSTEM OS & KEY INFO CARD   -->
+                <!-- Matches 01_giao_dien_app.png & 07_luong_hoat_dong.png           -->
+                <!-- ═══════════════════════════════════════════════════════════════ -->
+                <Grid ColumnDefinitions="1.35*,1*">
+
+                    <!-- Left: Get Script Lua Action Panel -->
+                    <Border Grid.Column="0" Background="{StaticResource Ocean900Brush}"
+                            BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1"
+                            CornerRadius="8" Padding="20" Margin="0,0,10,0">
+                        <StackPanel Spacing="14">
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="Get Script Lua" FontSize="16" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                                <TextBlock Text="Nhấn nút bên dưới để tự động nhận diện Hệ điều hành (OS), khởi tạo Key bảo mật SHA-256 + Base64 và dán toàn bộ JSON + Script Lua vào Clipboard."
+                                           FontSize="11" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                            </StackPanel>
+
+                            <!-- Primary & Secondary Action Buttons -->
+                            <WrapPanel Orientation="Horizontal">
+                                <Button Command="{Binding GetScriptAndCopyCommand}"
+                                        Background="#2563EB" BorderBrush="#60A5FA" BorderThickness="1"
+                                        CornerRadius="6" Padding="18,11" Margin="0,0,10,8" Cursor="Hand">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <TextBlock Text="📋" FontSize="14" VerticalAlignment="Center" />
+                                        <TextBlock Text="Get Script (Tạo Key + Auto Paste)" FontSize="12" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+
+                                <Button Command="{Binding CopyGeneratedScriptOnlyCommand}"
+                                        Background="#1E293B" BorderBrush="{StaticResource CyanSignalBrush}" BorderThickness="1"
+                                        CornerRadius="6" Padding="14,11" Margin="0,0,10,8" Cursor="Hand">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <TextBlock Text="📄" FontSize="13" VerticalAlignment="Center" />
+                                        <TextBlock Text="Copy Script" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource CyanSignalBrush}" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+
+                                <Button Command="{Binding RevokeCurrentKeyCommand}"
+                                        Background="#2E1C20" BorderBrush="{StaticResource CrimsonDangerBrush}" BorderThickness="1"
+                                        CornerRadius="6" Padding="14,11" Margin="0,0,0,8" Cursor="Hand">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <TextBlock Text="🗑️" FontSize="13" VerticalAlignment="Center" />
+                                        <TextBlock Text="Hủy Key (Revoke)" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource CrimsonDangerBrush}" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </WrapPanel>
+
+                            <!-- Source Encryption / Obfuscation Option ("Mã hóa nguồn") -->
+                            <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}"
+                                    BorderThickness="1" CornerRadius="6" Padding="12,8">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <StackPanel Grid.Column="0" Spacing="2" VerticalAlignment="Center">
+                                        <TextBlock Text="🔒 Mã Hóa Nguồn Lua (XOR + ByteTable Obfuscation)" FontSize="11" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                                        <TextBlock Text="Khi bật, toàn bộ chuỗi JSON + loadstring sẽ được mã hóa thành mảng byte bit32.bxor chống đọc trộm key." FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    </StackPanel>
+                                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding IsLuaSourceEncrypted}"
+                                                  OnContent="ĐÃ MÃ HÓA" OffContent="NGUỒN CHUẨN" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+
+                            <!-- Status Notification Box (Matches green box in 01_giao_dien_app.png & 07_luong_hoat_dong.png) -->
+                            <Border Background="#0E291F" BorderBrush="{StaticResource SeafoamBrush}"
+                                    BorderThickness="1" CornerRadius="6" Padding="14,10"
+                                    IsVisible="{Binding !IsKeyRateLimited}">
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="{Binding ScriptClipboardStatusTitle}"
+                                               FontSize="12" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                    <TextBlock Text="{Binding ScriptClipboardStatusDetail}"
+                                               FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Rate-Limit / Anti-Spam Alert Box (Matches 06_chong_spam_key.png) -->
+                            <Border Background="#2E151B" BorderBrush="{StaticResource CrimsonDangerBrush}"
+                                    BorderThickness="1" CornerRadius="6" Padding="14,10"
+                                    IsVisible="{Binding IsKeyRateLimited}">
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="⛔ CẢNH BÁO CHỐNG SPAM KEY (RATE_LIMIT)"
+                                               FontSize="12" FontWeight="Bold" Foreground="{StaticResource CrimsonDangerBrush}" />
+                                    <TextBlock Text="{Binding ScriptClipboardStatusDetail}"
+                                               FontSize="11" Foreground="#FCA5A5" TextWrapping="Wrap" />
+                                    <TextBlock Text="{Binding RateLimitJsonPreview}"
+                                               FontFamily="Cascadia Mono, Consolas, monospace"
+                                               FontSize="10" Foreground="{StaticResource GoldLightBrush}" Margin="0,4,0,0" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Right: Thông Tin Hệ Thống (System Info & OS Auto-Detection Card) -->
+                    <Border Grid.Column="1" Background="{StaticResource Ocean900Brush}"
+                            BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1"
+                            CornerRadius="8" Padding="20">
+                        <StackPanel Spacing="12">
+                            <TextBlock Text="Thông tin hệ thống (OS &amp; Key)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+
+                            <!-- Detected OS Row -->
+                            <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}"
+                                    BorderThickness="1" CornerRadius="6" Padding="12,8">
+                                <StackPanel Spacing="3">
+                                    <TextBlock Text="🖥 Hệ điều hành nhận diện tự động:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Text="{Binding DetectedOsDisplay}" FontSize="13" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                                    <TextBlock Text="{Binding DetectedHardwareIdsDisplay}" FontSize="10" FontFamily="Consolas, monospace" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Active Key Row -->
+                            <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource BrassGoldBrush}"
+                                    BorderThickness="1" CornerRadius="6" Padding="12,8">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <StackPanel Grid.Column="0" Spacing="3">
+                                        <TextBlock Text="🔑 Key Định Danh (SHA256 + Base64):" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                        <TextBlock Text="{Binding CurrentGeneratedKeyDisplay}" FontSize="14" FontWeight="Bold"
+                                                   FontFamily="Cascadia Mono, Consolas, monospace" Foreground="{StaticResource GoldLightBrush}" />
+                                    </StackPanel>
+                                    <Border Grid.Column="1" Background="#16382B" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding CurrentKeyStateText}" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <!-- Supported OS Quick Simulator (03_thong_tin_os.png) -->
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="Chuyển đổi / Kiểm thử 8 Hệ điều hành hỗ trợ:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                <WrapPanel Orientation="Horizontal">
+                                    <Button Command="{Binding SelectSimulatedOsCommand}" CommandParameter="Windows 11" Content="Windows 11" FontSize="10" Padding="7,4" Margin="0,0,4,4" Background="#112938" Foreground="{StaticResource CyanSignalBrush}" CornerRadius="4" Cursor="Hand" />
+                                    <Button Command="{Binding SelectSimulatedOsCommand}" CommandParameter="Windows 10" Content="Windows 10" FontSize="10" Padding="7,4" Margin="0,0,4,4" Background="#1A2530" Foreground="{StaticResource TextPrimaryBrush}" CornerRadius="4" Cursor="Hand" />
+                                    <Button Command="{Binding SelectSimulatedOsCommand}" CommandParameter="Windows 8.1" Content="Windows 8.1" FontSize="10" Padding="7,4" Margin="0,0,4,4" Background="#1A2530" Foreground="{StaticResource TextPrimaryBrush}" CornerRadius="4" Cursor="Hand" />
+                                    <Button Command="{Binding SelectSimulatedOsCommand}" CommandParameter="Windows 7" Content="Windows 7" FontSize="10" Padding="7,4" Margin="0,0,4,4" Background="#1A2530" Foreground="{StaticResource TextPrimaryBrush}" CornerRadius="4" Cursor="Hand" />
+                                    <Button Command="{Binding SelectSimulatedOsCommand}" CommandParameter="macOS" Content="macOS" FontSize="10" Padding="7,4" Margin="0,0,4,4" Background="#1A2530" Foreground="{StaticResource TextPrimaryBrush}" CornerRadius="4" Cursor="Hand" />
+                                    <Button Command="{Binding SelectSimulatedOsCommand}" CommandParameter="Ubuntu" Content="Ubuntu (Linux)" FontSize="10" Padding="7,4" Margin="0,0,4,4" Background="#1A2530" Foreground="{StaticResource TextPrimaryBrush}" CornerRadius="4" Cursor="Hand" />
+                                    <Button Command="{Binding SelectSimulatedOsCommand}" CommandParameter="Debian" Content="Debian (Linux)" FontSize="10" Padding="7,4" Margin="0,0,4,4" Background="#1A2530" Foreground="{StaticResource TextPrimaryBrush}" CornerRadius="4" Cursor="Hand" />
+                                    <Button Command="{Binding SelectSimulatedOsCommand}" CommandParameter="Fedora" Content="Fedora (Linux)" FontSize="10" Padding="7,4" Margin="0,0,4,4" Background="#1A2530" Foreground="{StaticResource TextPrimaryBrush}" CornerRadius="4" Cursor="Hand" />
+                                </WrapPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- ═══════════════════════════════════════════════════════════════ -->
+                <!-- ROW 2: LUA SCRIPT & JSON PAYLOAD DISPLAY (02_script_lua_mau.png)-->
+                <!-- ═══════════════════════════════════════════════════════════════ -->
+                <Grid ColumnDefinitions="1*,1*">
+
+                    <!-- Left: Lua Loader & Full Clipboard Output -->
+                    <Border Grid.Column="0" Background="{StaticResource Ocean900Brush}"
+                            BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1"
+                            CornerRadius="8" Padding="18" Margin="0,0,10,0">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="1. Script Lua Chính Thức &amp; Mã Đã Dán Vào Clipboard:" FontSize="13" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+
+                            <Border Background="#090D16" BorderBrush="#1E293B" BorderThickness="1" CornerRadius="6" Padding="12,10">
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="-- Loader gốc (hyuttgg/kaitun):" FontSize="10" Foreground="{StaticResource SeafoamBrush}" FontFamily="Consolas, monospace" />
+                                    <SelectableTextBlock Text="{Binding OfficialLuaLoaderLine}"
+                                                         FontFamily="Cascadia Mono, Consolas, monospace"
+                                                         FontSize="11" Foreground="#67E8F9" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <TextBlock Text="Nội dung hoàn chỉnh trong Clipboard (Tự động kết hợp JSON + Lua hoặc Bản Mã Hóa):" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBox Text="{Binding ActiveClipboardLuaContent}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"
+                                     Height="155" Background="#090D16" BorderBrush="{StaticResource Ocean800Brush}"
+                                     FontFamily="Cascadia Mono, Consolas, monospace" FontSize="11" Foreground="#E2E8F0" Padding="10" CornerRadius="6" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Right: JSON Payload (key, os, timestamp, version) -->
+                    <Border Grid.Column="1" Background="{StaticResource Ocean900Brush}"
+                            BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1"
+                            CornerRadius="8" Padding="18">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="2. Dữ Liệu JSON Được Tự Động Dán Vào:" FontSize="13" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+
+                            <TextBox Text="{Binding CurrentKeyJsonPayload}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"
+                                     Height="135" Background="#090D16" BorderBrush="{StaticResource Ocean800Brush}"
+                                     FontFamily="Cascadia Mono, Consolas, monospace" FontSize="12" Foreground="#FDE047" Padding="12" CornerRadius="6" />
+
+                            <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}"
+                                    BorderThickness="1" CornerRadius="6" Padding="12,8">
+                                <StackPanel Spacing="3">
+                                    <TextBlock Text="💡 Khi người dùng bấm &quot;Get Script&quot;:" FontSize="11" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                    <TextBlock Text="• App tự động lấy hệ điều hành đang dùng (Windows / macOS / Linux)" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBlock Text="• Tự động tạo Key bảo mật duy nhất (SHA-256 + Base64 định dạng OF-XXXX-XXXX)" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    <TextBlock Text="• Tự động ghép dữ liệu JSON cùng với Script Lua và copy thẳng vào Clipboard" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- ═══════════════════════════════════════════════════════════════ -->
+                <!-- ROW 3: ALGORITHMS & ANTI-SPAM MONITOR (04, 05, 06)              -->
+                <!-- ═══════════════════════════════════════════════════════════════ -->
+                <Grid ColumnDefinitions="1*,1*">
+
+                    <!-- Left: 6-Layer Anti-Spam Engine & Rate-Limit Tester -->
+                    <Border Grid.Column="0" Background="{StaticResource Ocean900Brush}"
+                            BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1"
+                            CornerRadius="8" Padding="18" Margin="0,0,10,0">
+                        <StackPanel Spacing="10">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="🛡️ CƠ CHẾ CHỐNG SPAM KEY (ANTI-SPAM ENGINE)"
+                                           FontSize="13" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" VerticalAlignment="Center" />
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                                    <Button Command="{Binding SimulateKeySpamRateLimitCommand}"
+                                            Content="⚡ Test Spam (Rate Limit)" FontSize="10" Padding="8,4"
+                                            Background="#2E1C20" BorderBrush="{StaticResource CrimsonDangerBrush}" BorderThickness="1"
+                                            Foreground="{StaticResource CrimsonDangerBrush}" CornerRadius="4" Cursor="Hand" />
+                                    <Button Command="{Binding ResetKeyCooldownCommand}"
+                                            Content="🔄 Reset Cooldown" FontSize="10" Padding="8,4"
+                                            Background="#112938" BorderBrush="{StaticResource CyanSignalBrush}" BorderThickness="1"
+                                            Foreground="{StaticResource CyanSignalBrush}" CornerRadius="4" Cursor="Hand" />
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto">
+                                <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="10,7" Margin="0,0,4,6">
+                                    <StackPanel Spacing="2">
+                                        <TextBlock Text="1. Giới hạn theo thiết bị" FontSize="10" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                                        <TextBlock Text="1 key / 5 phút / thiết bị (300s)" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="0" Grid.Column="1" Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="10,7" Margin="4,0,0,6">
+                                    <StackPanel Spacing="2">
+                                        <TextBlock Text="2. Giới hạn theo IP" FontSize="10" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                                        <TextBlock Text="{Binding AntiSpamIpUsageDisplay}" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="10,7" Margin="0,0,4,6">
+                                    <StackPanel Spacing="2">
+                                        <TextBlock Text="3. Xác thực thiết bị" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                        <TextBlock Text="Kiểm tra HWID + OS Fingerprint" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="1" Grid.Column="1" Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="10,7" Margin="4,0,0,6">
+                                    <StackPanel Spacing="2">
+                                        <TextBlock Text="4. Lưu trạng thái Cache" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                        <TextBlock Text="O(1) ConcurrentDictionary Cache" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="10,7" Margin="0,0,4,0">
+                                    <StackPanel Spacing="2">
+                                        <TextBlock Text="5. Khóa tạm thời" FontSize="10" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                                        <TextBlock Text="Khóa 30 phút nếu phát hiện spam" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="2" Grid.Column="1" Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="10,7" Margin="4,0,0,0">
+                                    <StackPanel Spacing="2">
+                                        <TextBlock Text="6. Ghi log &amp; Cảnh báo" FontSize="10" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                                        <TextBlock Text="{Binding AntiSpamCooldownDisplay}" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Right: Key History & Revocation Table (keys.db / cache) -->
+                    <Border Grid.Column="1" Background="{StaticResource Ocean900Brush}"
+                            BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1"
+                            CornerRadius="8" Padding="18">
+                        <StackPanel Spacing="10">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="🗄️ DANH SÁCH KEY TRONG DATABASE &amp; CACHE (KEYS.DB)"
+                                           FontSize="13" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="{Binding GeneratedKeysHistory.Count, StringFormat='{}Tổng: {0} Key'}"
+                                           FontSize="11" Foreground="{StaticResource GoldLightBrush}" VerticalAlignment="Center" />
+                            </Grid>
+
+                            <ItemsControl ItemsSource="{Binding GeneratedKeysHistory}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}"
+                                                BorderThickness="1" CornerRadius="4" Padding="10,6" Margin="0,0,0,6">
+                                            <Grid ColumnDefinitions="130,100,*,85">
+                                                <TextBlock Grid.Column="0" Text="{Binding Key}" FontWeight="Bold"
+                                                           FontFamily="Consolas, monospace" FontSize="11" Foreground="{StaticResource GoldLightBrush}" VerticalAlignment="Center" />
+                                                <TextBlock Grid.Column="1" Text="{Binding Os}" FontSize="11" Foreground="{StaticResource CyanSignalBrush}" VerticalAlignment="Center" />
+                                                <TextBlock Grid.Column="2" Text="{Binding Hwid}" FontSize="10" FontFamily="Consolas, monospace" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" />
+                                                <Border Grid.Column="3" Background="#16382B" CornerRadius="3" Padding="6,2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding Status}" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                                </Border>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

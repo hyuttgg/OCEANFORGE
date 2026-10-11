@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/OceanForge.AI/OceanForge.AI.csproj" />
+    <Project Path="src/OceanForge.Application/OceanForge.Application.csproj" />
+    <Project Path="src/OceanForge.Contracts/OceanForge.Contracts.csproj" />
+    <Project Path="src/OceanForge.Desktop/OceanForge.Desktop.csproj" />
+    <Project Path="src/OceanForge.Domain/OceanForge.Domain.csproj" />
+    <Project Path="src/OceanForge.Local.Persistence/OceanForge.Local.Persistence.csproj" />
+    <Project Path="src/OceanForge.Telemetry/OceanForge.Telemetry.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/OceanForge.Application.Tests/OceanForge.Application.Tests.csproj" />
+    <Project Path="tests/OceanForge.Domain.Tests/OceanForge.Domain.Tests.csproj" />
+  </Folder>
+</Solution>

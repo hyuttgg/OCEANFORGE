@@ -1,0 +1,84 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.AccountEditorView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <ScrollViewer>
+            <StackPanel Spacing="16" MaxWidth="720" HorizontalAlignment="Left">
+                <!-- Header -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="13. CHỈNH SỬA METADATA TÀI KHOẢN HẢI TẶC (METADATA EDITOR)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    <TextBlock Text="Chỉnh sửa các thẻ tag, tên gọi quy ước (alias), đội tàu (group) và ghi chú quản lý nội bộ. Tuyệt đối không can thiệp trái phép vào dữ liệu game." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+
+                <!-- Form Section: Editable Metadata -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="20">
+                    <StackPanel Spacing="14">
+                        <TextBlock Text="THÔNG TIN QUẢN TRỊ NỘI BỘ (CHO PHÉP CHỈNH SỬA)" FontSize="12" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Tên Gọi Quy Ước (Fleet Alias):" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBox Text="{Binding SelectedAccount.RobloxUsername, FallbackValue='CaptainKha_77 (Tàu Tiên Phong)'}" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" CornerRadius="4" Padding="10,8" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Đội Tàu / Phân Nhóm (Fleet Group):" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBox Text="Alpha Strike — Săn Boss Leviathan" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" CornerRadius="4" Padding="10,8" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Nhãn Gắn Kèm (Tags — cách nhau bởi dấu phẩy):" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBox Text="v4-cyborg, kitsune-600, leviathan-ready, sea3-main" Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" CornerRadius="4" Padding="10,8" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Ghi Chú Vận Hành (Operator Notes):" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBox AcceptsReturn="True" Height="70" Text="Tài khoản chủ lực săn tim Leviathan. Đã hoàn tất 8/10 bí mật và đạt Magnet Power Stage 3." Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource Ocean800Brush}" CornerRadius="4" Padding="10,8" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Read-Only Source Telemetry (Integrity Protected) -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="20">
+                    <StackPanel Spacing="10">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Grid.Column="0" Text="DỮ LIỆU TELEMETRY BẢO CHỨNG (CHỈ ĐỌC — READ-ONLY)" FontSize="12" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                            <Border Grid.Column="1" Background="#16382B" CornerRadius="3" Padding="6,2">
+                                <TextBlock Text="VERIFIED BY FNV-1A" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                            </Border>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*,*">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="Cấp Độ Game:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                <TextBlock Text="{Binding SelectedAccount.Level, StringFormat='{}Lv. {0}', FallbackValue='Lv. 2600'}" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Spacing="2">
+                                <TextBlock Text="Trái Ác Quỷ:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                <TextBlock Text="{Binding SelectedAccount.Fruit, FallbackValue='Kitsune (Mastery 600)'}" FontSize="13" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" Spacing="2">
+                                <TextBlock Text="Vùng Biển &amp; Vị Trí:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                <TextBlock Text="{Binding SelectedAccount.Location, FallbackValue='Tiki Outpost (Sea 3)'}" FontSize="13" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Action Footer -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Grid.Column="0" Text="Phiên bản schema: v1.4 • Cập nhật lần cuối: Vừa xong" FontSize="10" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" />
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+                        <Button Content="Hủy Thay Đổi" Background="#1A2530" Foreground="{StaticResource TextPrimaryBrush}" CornerRadius="4" Padding="14,8" Cursor="Hand" />
+                        <Button Content="💾 Lưu Metadata Vào SQLite" Background="{StaticResource BrassGoldBrush}" Foreground="{StaticResource Ocean950Brush}" FontWeight="Bold" CornerRadius="4" Padding="16,8" Cursor="Hand" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

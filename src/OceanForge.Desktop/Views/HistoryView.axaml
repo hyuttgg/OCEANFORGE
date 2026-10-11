@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.HistoryView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <StackPanel Spacing="16">
+            <!-- Header Toolbar -->
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Spacing="4">
+                    <TextBlock Text="11. NHẬT KÝ SỰ KIỆN &amp; LỊCH SỬ HẠM ĐỘI (EVENT TIMELINE &amp; DIFF)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    <TextBlock Text="Lưu vết chuỗi sự kiện telemetry, phiên đăng nhập, thay đổi trạng thái và biến động số dư theo thời gian (Append-Only)." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+
+                <!-- Filter Pills -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <Button Content="Tất Cả Sự Kiện" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource CyanSignalBrush}" FontSize="11" />
+                    <Button Content="Biến Động Beli" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                    <Button Content="Thăng Cấp Level" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                    <Button Content="Đổi Vị Trí/Sea" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Event Timeline Table -->
+            <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16">
+                <StackPanel Spacing="10">
+                    <Grid ColumnDefinitions="140,160,180,*,120" Margin="0,0,0,6">
+                        <TextBlock Grid.Column="0" Text="THỜI GIAN (UTC)" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="1" Text="TÀI KHOẢN" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="2" Text="LOẠI SỰ KIỆN" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="3" Text="CHI TIẾT THAY ĐỔI" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="4" Text="KẾT QUẢ" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Right" />
+                    </Grid>
+
+                    <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+
+                    <!-- Simulated History Events -->
+                    <StackPanel Spacing="8">
+                        <Border Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="12,8">
+                            <Grid ColumnDefinitions="140,160,180,*,120">
+                                <TextBlock Grid.Column="0" Text="10:04:12 UTC" FontSize="11" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="CaptainKha_77" FontSize="12" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Text="⚡ FAST_PATH_DEDUP" FontSize="11" Foreground="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="3" Text="State Checksum unchanged (#7B4A9C12) — Ingestion channel bypassed" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                <Border Grid.Column="4" Background="#16382B" CornerRadius="3" Padding="6,2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                    <TextBlock Text="SUCCESS" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="12,8">
+                            <Grid ColumnDefinitions="140,160,180,*,120">
+                                <TextBlock Grid.Column="0" Text="10:02:45 UTC" FontSize="11" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="AbyssalRider_VN" FontSize="12" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Text="⚔️ LEVEL_UPGRADE" FontSize="11" Foreground="{StaticResource GoldLightBrush}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="3" Text="Level tăng từ Lv. 2549 ➔ Lv. 2550 (+1 level, +45,000 Beli)" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                <Border Grid.Column="4" Background="#16382B" CornerRadius="3" Padding="6,2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                    <TextBlock Text="RECORDED" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="12,8">
+                            <Grid ColumnDefinitions="140,160,180,*,120">
+                                <TextBlock Grid.Column="0" Text="09:58:10 UTC" FontSize="11" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="Corsair_Ghost" FontSize="12" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Text="🗺️ LOCATION_CHANGE" FontSize="11" Foreground="{StaticResource CyanSignalBrush}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="3" Text="Di chuyển từ The Cafe ➔ Green Zone (Bắt đầu nhiệm vụ Alchemist V2)" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                                <Border Grid.Column="4" Background="#16382B" CornerRadius="3" Padding="6,2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                    <TextBlock Text="SYNCED" FontSize="9" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Border>
+</UserControl>

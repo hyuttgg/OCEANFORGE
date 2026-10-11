@@ -1,0 +1,67 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.CommunityStatsView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <StackPanel Spacing="16">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Spacing="4">
+                    <TextBlock Text="23. BẢNG XẾP HẠNG &amp; THỐNG KÊ CỘNG ĐỒNG (COMMUNITY LEADERBOARD)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    <TextBlock Text="Thống kê tổng hợp ẩn danh từ các hạm đội hải tặc (Tuân thủ quyền riêng tư và chia sẻ dữ liệu tự nguyện)." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <Button Content="Tuần Này" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource CyanSignalBrush}" FontSize="11" />
+                    <Button Content="Tháng Này" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                    <Button Content="Toàn Thời Gian" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Leaderboard Table -->
+            <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16">
+                <StackPanel Spacing="10">
+                    <Grid ColumnDefinitions="60,200,160,160,*,120">
+                        <TextBlock Grid.Column="0" Text="HẠNG" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="1" Text="TÊN HẠM ĐỘI" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="2" Text="TỔNG SỐ TÀI KHOẢN" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="3" Text="SỐ TIỀN BELI" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="4" Text="THÀNH TỰU NỔI BẬT" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="5" Text="HUY HIỆU" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Right" />
+                    </Grid>
+
+                    <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+
+                    <!-- Rank 1 -->
+                    <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="1" CornerRadius="4" Padding="12,8">
+                        <Grid ColumnDefinitions="60,200,160,160,*,120">
+                            <TextBlock Grid.Column="0" Text="🥇 #1" FontWeight="Bold" FontSize="14" Foreground="{StaticResource BrassGoldBrush}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="1" Text="Hạm Đội Biển Sâu VN" FontWeight="Bold" FontSize="12" Foreground="{StaticResource GoldLightBrush}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Text="24 Chiến Thuyền" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="3" Text="1,850,000,000 💰" FontSize="11" Foreground="#4ADE80" FontWeight="SemiBold" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="4" Text="15 Lần Hạ Gục Boss Leviathan" FontSize="11" Foreground="{StaticResource SeafoamBrush}" VerticalAlignment="Center" />
+                            <Border Grid.Column="5" Background="#261E14" CornerRadius="3" Padding="6,2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <TextBlock Text="ADMIRAL" FontSize="9" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- Rank 2 -->
+                    <Border Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="12,8">
+                        <Grid ColumnDefinitions="60,200,160,160,*,120">
+                            <TextBlock Grid.Column="0" Text="🥈 #2" FontWeight="Bold" FontSize="13" Foreground="{StaticResource CyanSignalBrush}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="1" Text="Corsair Armada Global" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Text="18 Chiến Thuyền" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="3" Text="940,000,000 💰" FontSize="11" Foreground="#4ADE80" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="4" Text="Thức tỉnh toàn bộ Tộc V4" FontSize="11" Foreground="{StaticResource CyanSignalBrush}" VerticalAlignment="Center" />
+                            <Border Grid.Column="5" Background="#102533" CornerRadius="3" Padding="6,2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <TextBlock Text="COMMODORE" FontSize="9" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Border>
+</UserControl>

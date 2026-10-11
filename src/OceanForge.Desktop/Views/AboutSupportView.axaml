@@ -1,0 +1,121 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.AboutSupportView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="16" MaxWidth="900" HorizontalAlignment="Left">
+                
+                <!-- Header -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="24. THÔNG TIN PHIÊN BẢN &amp; HỖ TRỢ KỸ THUẬT (ABOUT / VERSION / SUPPORT)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    <TextBlock Text="Thông số phát hành chính thức, bản quyền phần mềm, thông tin runtime .NET 10 LTS và gói chẩn đoán an toàn (Sanitized Diagnostics)." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+
+                <!-- Brand Emblem & Hero Card -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="1" CornerRadius="8" Padding="24">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <!-- Emblem -->
+                        <Border Grid.Column="0" Width="80" Height="80" Background="#102533" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="2" CornerRadius="40" Margin="0,0,24,0" VerticalAlignment="Center">
+                            <TextBlock Text="⚓" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource BrassGoldBrush}" />
+                        </Border>
+
+                        <!-- App Meta -->
+                        <StackPanel Grid.Column="1" Spacing="6" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <TextBlock Text="OCEANFORGE DESKTOP" FontSize="18" FontWeight="Bold" LetterSpacing="1" Foreground="{StaticResource GoldLightBrush}" />
+                                <Border Background="#16382B" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="4" Padding="8,2" VerticalAlignment="Center">
+                                    <TextBlock Text="v4.0.0 LTS • STABLE" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                                </Border>
+                            </StackPanel>
+
+                            <TextBlock Text="Abyssal Command Center • Telemetry &amp; State Management Console for Blox Fruits Update 30" FontSize="12" Foreground="{StaticResource CyanSignalBrush}" />
+
+                            <Grid ColumnDefinitions="Auto,Auto,Auto" Margin="0,6,0,0">
+                                <StackPanel Grid.Column="0" Margin="0,0,24,0">
+                                    <TextBlock Text="RUNTIME" FontSize="9" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Text=".NET 10.0 (net10.0)" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" Margin="0,0,24,0">
+                                    <TextBlock Text="UI FRAMEWORK" FontSize="9" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Text="Avalonia UI 12.1.4" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="COMMIT / BUILD HASH" FontSize="9" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                                    <TextBlock Text="e8f9a2b (20261010.4-release)" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource BrassGoldBrush}" />
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Security & Privacy Boundary Guarantee -->
+                <Border Background="#122533" BorderBrush="{StaticResource CyanSignalBrush}" BorderThickness="1" CornerRadius="6" Padding="16">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <TextBlock Grid.Column="0" Text="🛡️" FontSize="24" VerticalAlignment="Center" Margin="0,0,16,0" />
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <TextBlock Text="CAM KẾT AN TOÀN TUYỆT ĐỐI (ZERO-ROBLOX CREDENTIAL HARVESTING)" FontSize="12" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                            <TextBlock Text="OceanForge tuân thủ nghiêm ngặt ranh giới bảo mật cấp hệ thống: KHÔNG BAO GIỜ thu thập, trích xuất hoặc lưu trữ mật khẩu, cookie .ROBLOSECURITY, mã 2FA hoặc thông tin tài khoản người dùng. Mọi gói tin chỉ là trạng thái telemetry thuần túy (Level, Beli, Trái ác quỷ, Đảo) được truyền qua loopback cục bộ http://127.0.0.1:5088." TextWrapping="Wrap" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" LineHeight="16" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Diagnostics & Action Buttons -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16">
+                    <StackPanel Spacing="12">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="GÓI CHẨN ĐOÁN KỸ THUẬT (SANITIZED DIAGNOSTICS BUNDLE)" FontSize="12" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                                <TextBlock Text="Mã Trace ID hiện tại: OF-DIAG-20261010-994A1F (Không chứa thông tin nhận dạng cá nhân PII)" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                <Button Content="📋 Sao Chép Version &amp; Trace ID" Padding="12,6" CornerRadius="4" Background="#112938" Foreground="{StaticResource BrassGoldBrush}" BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="1" FontSize="11" Cursor="Hand" />
+                                <Button Content="📦 Xuất Gói Diagnostics (.zip)" Padding="12,6" CornerRadius="4" Background="{StaticResource BrassGoldBrush}" Foreground="{StaticResource Ocean950Brush}" FontWeight="Bold" FontSize="11" Cursor="Hand" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="17" Content="🔄 Đi tới Quản Lý Bản Cập Nhật (UI-17)" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource CyanSignalBrush}" FontSize="11" Cursor="Hand" />
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="21" Content="🖥️ Xem Nhật Ký Chẩn Đoán Console (UI-21)" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" Cursor="Hand" />
+                            <Button Command="{Binding SelectScreenCommand}" CommandParameter="14" Content="⚙️ Cài Đặt Ứng Dụng (UI-14)" Padding="10,5" CornerRadius="4" Background="#112938" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" Cursor="Hand" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Third-Party Open Source Notices -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="BẢN QUYỀN THƯ VIỆN &amp; MÃ NGUỒN MỞ (THIRD-PARTY LICENSES)" FontSize="12" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                        
+                        <Grid ColumnDefinitions="*,*">
+                            <StackPanel Grid.Column="0" Spacing="6" Margin="0,0,10,0">
+                                <TextBlock Text="• Avalonia UI (MIT License) - Copyright (c) .NET Foundation and Contributors" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                <TextBlock Text="• CommunityToolkit.Mvvm (MIT License) - Copyright (c) .NET Foundation" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                <TextBlock Text="• Microsoft.EntityFrameworkCore.Sqlite (MIT License) - Copyright (c) Microsoft" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Spacing="6">
+                                <TextBlock Text="• LibreHardwareMonitor (MPL-2.0 License) - Hardware telemetry core" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                <TextBlock Text="• Hardware.Info (MIT License) - Cross-platform hardware diagnostics" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                                <TextBlock Text="• Blox Fruits Fandom Community Wiki (CC-BY-SA 3.0) - Trích dẫn dữ liệu catalog" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Footer Copyright Notice -->
+                <Border Background="{StaticResource Ocean950Brush}" Padding="10" HorizontalAlignment="Center">
+                    <TextBlock Text="Bản quyền © 2026 OceanForge Studio. Phát triển cho cộng đồng thuyền trưởng hải tặc Blox Fruits toàn cầu." FontSize="11" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Center" />
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

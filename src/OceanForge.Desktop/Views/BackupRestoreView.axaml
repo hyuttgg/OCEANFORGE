@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.BackupRestoreView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" Padding="20">
+        <StackPanel Spacing="16">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Spacing="4">
+                    <TextBlock Text="16. SAO LƯU &amp; PHỤC HỒI DỮ LIỆU (BACKUP &amp; DISASTER RECOVERY)" FontSize="15" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    <TextBlock Text="Quản lý sao lưu cơ sở dữ liệu SQLite cục bộ (an toàn với cơ chế Write-Ahead Logging WAL) và xuất bản ghi snapshot hạm đội." FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+
+                <Button Grid.Column="1" Content="💾 Tạo Bản Sao Lưu Ngay" Background="{StaticResource BrassGoldBrush}" Foreground="{StaticResource Ocean950Brush}" FontWeight="Bold" CornerRadius="4" Padding="12,6" Cursor="Hand" FontSize="11" />
+            </Grid>
+
+            <!-- Backup Scope & History Table -->
+            <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="16">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="LỊCH SỬ BẢN SAO LƯU GẦN NHẤT" FontSize="12" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+
+                    <Grid ColumnDefinitions="160,180,100,*,140">
+                        <TextBlock Grid.Column="0" Text="THỜI ĐIỂM (UTC)" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="1" Text="TÊN TỆP SAO LƯU" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="2" Text="KÍCH THƯỚC" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="3" Text="CHECKSUM SHA-256" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Grid.Column="4" Text="THAO TÁC" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Right" />
+                    </Grid>
+
+                    <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+
+                    <!-- Backup Row 1 -->
+                    <Border Background="{StaticResource Ocean950Brush}" CornerRadius="4" Padding="12,8">
+                        <Grid ColumnDefinitions="160,180,100,*,140">
+                            <TextBlock Grid.Column="0" Text="2026-10-10 09:30:00" FontSize="11" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="1" Text="oceanforge_local_v1.db.bak" FontSize="11" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Text="4.2 MB" FontSize="11" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="3" Text="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" FontSize="10" Foreground="{StaticResource SeafoamBrush}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                            <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="6" HorizontalAlignment="Right">
+                                <Button Content="Phục hồi" Background="#16382B" Foreground="{StaticResource SeafoamBrush}" CornerRadius="3" Padding="8,3" FontSize="10" Cursor="Hand" />
+                                <Button Content="Tải về" Background="#1A2530" Foreground="{StaticResource TextPrimaryBrush}" CornerRadius="3" Padding="8,3" FontSize="10" Cursor="Hand" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Border>
+</UserControl>

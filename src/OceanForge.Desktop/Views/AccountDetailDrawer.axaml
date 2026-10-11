@@ -1,0 +1,174 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.AccountDetailDrawer"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource Ocean950Brush}" BorderBrush="{StaticResource BrassGoldBrush}" 
+            BorderThickness="2" CornerRadius="8" Padding="20" Width="440" MaxHeight="800">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="16">
+                <!-- Drawer Header -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0" Spacing="2">
+                        <TextBlock Text="CHI TIẾT TÀI KHOẢN HẢI TẶC (SCREEN 07)" FontSize="10" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                        <TextBlock Text="{Binding SelectedAccount.RobloxUsername, FallbackValue='CaptainKha_77'}" 
+                                   FontSize="20" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                    </StackPanel>
+                    
+                    <Button Grid.Column="1" Command="{Binding CloseAccountDetailCommand}"
+                            Background="#221215" Foreground="{StaticResource CrimsonDangerBrush}" 
+                            BorderBrush="{StaticResource CrimsonDangerBrush}" BorderThickness="1"
+                            CornerRadius="4" Padding="10,6" Cursor="Hand">
+                        <TextBlock Text="✕ Đóng" FontWeight="Bold" FontSize="11" />
+                    </Button>
+                </Grid>
+
+                <Separator Background="{StaticResource Ocean800Brush}" Height="1" />
+
+                <!-- Status & Level Badges -->
+                <Grid ColumnDefinitions="*,*,*">
+                    <Border Grid.Column="0" Background="{StaticResource Ocean900Brush}" CornerRadius="6" Padding="10" Margin="0,0,6,0">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="CẤP ĐỘ" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="{Binding SelectedAccount.Level, StringFormat='{}Lv. {0}', FallbackValue='Lv. 2600'}" 
+                                       FontSize="16" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Background="{StaticResource Ocean900Brush}" CornerRadius="6" Padding="10" Margin="0,0,6,0">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="CHỦNG TỘC" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="{Binding SelectedAccount.Race, FallbackValue='Cyborg V4'}" 
+                                       FontSize="14" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="2" Background="{StaticResource Ocean900Brush}" CornerRadius="6" Padding="10">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="VÙNG BIỂN" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="{Binding SelectedAccount.Sea, FallbackValue='Sea 3'}" 
+                                       FontSize="14" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Wealth (Beli & Fragments) -->
+                <Border Background="{StaticResource Ocean900Brush}" BorderBrush="{StaticResource Ocean800Brush}" BorderThickness="1" CornerRadius="6" Padding="14,10">
+                    <Grid ColumnDefinitions="*,*">
+                        <StackPanel Grid.Column="0" Spacing="2">
+                            <TextBlock Text="TIỀN VÀNG BELI" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="{Binding SelectedAccount.Beli, StringFormat='{}{0:N0} 💰', FallbackValue='145,000,000 💰'}" 
+                                       FontSize="15" FontWeight="Bold" Foreground="#4ADE80" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Spacing="2">
+                            <TextBlock Text="MẢNH TÍM FRAGMENTS" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                            <TextBlock Text="{Binding SelectedAccount.Fragments, StringFormat='{}{0:N0} 🟣', FallbackValue='75,200 🟣'}" 
+                                       FontSize="15" FontWeight="Bold" Foreground="#C084FC" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Loadout Inventory Section -->
+                <StackPanel Spacing="8">
+                    <TextBlock Text="TRANG BỊ &amp; KỸ NĂNG CHIẾN ĐẤU (LOADOUT)" FontSize="11" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                    
+                    <!-- Fruit -->
+                    <Border Background="{StaticResource Ocean900Brush}" CornerRadius="6" Padding="12,8">
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Grid.Column="0" Text="🍎 Trái Ác Quỷ:" FontSize="11" Foreground="{StaticResource TextMutedBrush}" Width="90" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedAccount.Fruit, FallbackValue='Kitsune (Mastery 600)'}" 
+                                       FontSize="12" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                        </Grid>
+                    </Border>
+
+                    <!-- Sword -->
+                    <Border Background="{StaticResource Ocean900Brush}" CornerRadius="6" Padding="12,8">
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Grid.Column="0" Text="⚔️ Vũ Khí Kiếm:" FontSize="11" Foreground="{StaticResource TextMutedBrush}" Width="90" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedAccount.Sword, FallbackValue='Cursed Dual Katana'}" 
+                                       FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </Grid>
+                    </Border>
+
+                    <!-- Fighting Style -->
+                    <Border Background="{StaticResource Ocean900Brush}" CornerRadius="6" Padding="12,8">
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Grid.Column="0" Text="🥋 Thế Võ:" FontSize="11" Foreground="{StaticResource TextMutedBrush}" Width="90" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedAccount.FightingStyle, FallbackValue='Godhuman'}" 
+                                       FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource SeafoamBrush}" />
+                        </Grid>
+                    </Border>
+
+                    <!-- Gun -->
+                    <Border Background="{StaticResource Ocean900Brush}" CornerRadius="6" Padding="12,8">
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Grid.Column="0" Text="🔫 Súng Thần:" FontSize="11" Foreground="{StaticResource TextMutedBrush}" Width="90" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedAccount.Gun, FallbackValue='Soul Guitar'}" 
+                                       FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <!-- Blox Fruits Update 30 Progress Section -->
+                <StackPanel Spacing="8">
+                    <TextBlock Text="TIẾN ĐỘ UPDATE 30 (MAGNET POWER &amp; SECRETS)" FontSize="11" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+
+                    <!-- Magnet Power Stage -->
+                    <Border Background="{StaticResource Ocean900Brush}" CornerRadius="6" Padding="12,10">
+                        <StackPanel Spacing="6">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="🧲 Magnet Power Progression" FontSize="11" FontWeight="Bold" Foreground="{StaticResource CyanSignalBrush}" />
+                                <TextBlock Grid.Column="1" Text="{Binding SelectedAccount.MagnetStage, StringFormat='{}Giai đoạn {0}/5', FallbackValue='Giai đoạn 3/5'}" 
+                                           FontSize="10" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                            </Grid>
+                            <ProgressBar Value="{Binding SelectedAccount.MagnetStage, FallbackValue=3}" Minimum="0" Maximum="5" Height="6" CornerRadius="3" Foreground="{StaticResource CyanSignalBrush}" />
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="Tokens Nam Châm Đã Thu Thập:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                <TextBlock Grid.Column="1" Text="{Binding SelectedAccount.MagnetTokens, StringFormat='{}{0:N0} 🪙', FallbackValue='1,250 🪙'}" FontSize="10" FontWeight="Bold" Foreground="{StaticResource GoldLightBrush}" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Secrets Completed -->
+                    <Border Background="{StaticResource Ocean900Brush}" CornerRadius="6" Padding="12,10">
+                        <StackPanel Spacing="6">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="🗝️ Bí Mật Hải Trình (Secrets Progress)" FontSize="11" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                                <TextBlock Grid.Column="1" Text="{Binding SelectedAccount.SecretsCompleted, StringFormat='{}{0}/10 Hoàn tất', FallbackValue='8/10 Hoàn tất'}" 
+                                           FontSize="10" FontWeight="Bold" Foreground="{StaticResource SeafoamBrush}" />
+                            </Grid>
+                            <ProgressBar Value="{Binding SelectedAccount.SecretsPercentage, FallbackValue=80}" Minimum="0" Maximum="100" Height="6" CornerRadius="3" Foreground="{StaticResource SeafoamBrush}" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- Hardware & Executor Telemetry -->
+                <Border Background="{StaticResource Ocean900Brush}" CornerRadius="6" Padding="12,10">
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="TELEMETRY THIẾT BỊ &amp; EXECUTOR" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}" />
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Grid.Column="0" Text="Executor:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" Width="80" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedAccount.Executor, FallbackValue='Wave v3.2'}" FontSize="10" Foreground="{StaticResource TextPrimaryBrush}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Grid.Column="0" Text="Mã HWID:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" Width="80" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedAccount.DeviceHwid, FallbackValue='HWID-X889-WINDOWS'}" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Grid.Column="0" Text="Checksum:" FontSize="10" Foreground="{StaticResource TextMutedBrush}" Width="80" />
+                            <TextBlock Grid.Column="1" Text="{Binding SelectedAccount.ChecksumHash, StringFormat='{}FNV-1a #{0}', FallbackValue='FNV-1a #7B4A9C12'}" FontSize="10" Foreground="{StaticResource CyanSignalBrush}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Security Assurance Pill -->
+                <Border Background="#10251B" BorderBrush="{StaticResource SeafoamBrush}" BorderThickness="1" CornerRadius="6" Padding="10,8">
+                    <TextBlock Text="🛡️ ZERO CREDENTIAL SAFEGUARD: Không lưu mật khẩu Roblox, cookie hay token đăng nhập. Mọi telemetry chỉ chứa trạng thái game đã băm FNV-1a." 
+                               TextWrapping="Wrap" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

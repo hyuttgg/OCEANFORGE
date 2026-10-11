@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:OceanForge.Desktop.ViewModels"
+             x:Class="OceanForge.Desktop.Views.SplashView"
+             x:DataType="vm:MainViewModel">
+
+    <Border Background="{StaticResource AbyssBrush}" Padding="40">
+        <Grid RowDefinitions="*,Auto,Auto">
+            <!-- Center Branding -->
+            <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="16">
+                <!-- Anchor Emblem -->
+                <Border Width="96" Height="96" Background="{StaticResource Ocean900Brush}" 
+                        BorderBrush="{StaticResource BrassGoldBrush}" BorderThickness="2" CornerRadius="48"
+                        HorizontalAlignment="Center">
+                    <TextBlock Text="⚓" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource BrassGoldBrush}" />
+                </Border>
+
+                <!-- Titles -->
+                <TextBlock Text="OCEANFORGE DESKTOP" FontSize="28" FontWeight="Bold" LetterSpacing="2" 
+                           Foreground="{StaticResource GoldLightBrush}" HorizontalAlignment="Center" />
+                
+                <TextBlock Text="ABYSSAL COMMAND CENTER • VERSION 4.0 LTS" FontSize="12" FontWeight="SemiBold" 
+                           Foreground="{StaticResource CyanSignalBrush}" HorizontalAlignment="Center" />
+
+                <TextBlock Text="Khởi tạo môi trường C# .NET 10 • Kết nối SQLite Local WAL • Đệm BoundedChannel" 
+                           FontSize="11" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Center" />
+            </StackPanel>
+
+            <!-- Loading Progress Bar -->
+            <StackPanel Grid.Row="1" Width="480" HorizontalAlignment="Center" Spacing="8" Margin="0,0,0,30">
+                <ProgressBar Value="100" IsIndeterminate="False" Height="4" CornerRadius="2" Foreground="{StaticResource SeafoamBrush}" Background="{StaticResource Ocean800Brush}" />
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Grid.Column="0" Text="Hệ thống sẵn sàng — Tải cấu hình và khởi động HTTP Bridge :5088" FontSize="10" Foreground="{StaticResource SeafoamBrush}" />
+                    <TextBlock Grid.Column="1" Text="100% HOÀN TẤT" FontSize="10" FontWeight="Bold" Foreground="{StaticResource BrassGoldBrush}" />
+                </Grid>
+            </StackPanel>
+
+            <!-- Footer Meta & Actions -->
+            <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto">
+                <TextBlock Grid.Column="0" Text="Kênh Phát Hành: Stable x64 (Windows / Linux Dual-Target)" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10">
+                    <Button Command="{Binding SelectScreenCommand}" CommandParameter="06"
+                            Background="{StaticResource BrassGoldBrush}" Foreground="{StaticResource Ocean950Brush}"
+                            Padding="16,8" CornerRadius="4" Cursor="Hand">
+                        <TextBlock Text="Vào Command Center ➔" FontWeight="Bold" FontSize="11" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
